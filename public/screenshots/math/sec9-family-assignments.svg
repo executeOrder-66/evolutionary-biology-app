@@ -1,0 +1,42 @@
+<svg width="560" height="90" viewBox="0 0 560 90" xmlns="http://www.w3.org/2000/svg" font-family="system-ui,-apple-system,sans-serif">
+  <rect width="560" height="90" rx="12" fill="white" stroke="#e5e7eb" stroke-width="1.5"/>
+  <text x="280" y="20" font-size="11" font-weight="700" fill="#374151" text-anchor="middle">5 FAMILIES — Resistance range determines which family a bacterium belongs to</text>
+  <!-- resistance axis -->
+  <defs>
+    <linearGradient id="axis-grad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%"   stop-color="#22c55e"/>
+      <stop offset="50%"  stop-color="#eab308"/>
+      <stop offset="100%" stop-color="#ef4444"/>
+    </linearGradient>
+  </defs>
+  <rect x="20" y="55" width="520" height="6" rx="3" fill="url(#axis-grad)" opacity="0.3"/>
+  <!-- 5 family segments -->
+  <!-- Tiny: 0.0-0.2 → x=20..124 -->
+  <rect x="20"  y="32" width="104" height="20" rx="5" fill="#ef4444" opacity="0.15" stroke="#ef4444" stroke-width="1.5"/>
+  <text x="72"  y="46" font-size="11" font-weight="700" fill="#dc2626" text-anchor="middle">Tiny</text>
+  <!-- Scout: 0.2-0.4 → x=124..228 -->
+  <rect x="124" y="32" width="104" height="20" rx="5" fill="#f97316" opacity="0.15" stroke="#f97316" stroke-width="1.5"/>
+  <text x="176" y="46" font-size="11" font-weight="700" fill="#ea580c" text-anchor="middle">Scout</text>
+  <!-- Patches: 0.4-0.6 → x=228..332 -->
+  <rect x="228" y="32" width="104" height="20" rx="5" fill="#eab308" opacity="0.15" stroke="#eab308" stroke-width="1.5"/>
+  <text x="280" y="46" font-size="11" font-weight="700" fill="#a16207" text-anchor="middle">Patches</text>
+  <!-- Rusty: 0.6-0.8 → x=332..436 -->
+  <rect x="332" y="32" width="104" height="20" rx="5" fill="#3b82f6" opacity="0.15" stroke="#3b82f6" stroke-width="1.5"/>
+  <text x="384" y="46" font-size="11" font-weight="700" fill="#1d4ed8" text-anchor="middle">Rusty</text>
+  <!-- Tank: 0.8-1.0 → x=436..540 -->
+  <rect x="436" y="32" width="104" height="20" rx="5" fill="#22c55e" opacity="0.15" stroke="#22c55e" stroke-width="1.5"/>
+  <text x="488" y="46" font-size="11" font-weight="700" fill="#15803d" text-anchor="middle">Tank</text>
+  <!-- axis tick labels -->
+  <text x="20"  y="72" font-size="9" fill="#9ca3af" text-anchor="middle">0.0</text>
+  <text x="124" y="72" font-size="9" fill="#9ca3af" text-anchor="middle">0.2</text>
+  <text x="228" y="72" font-size="9" fill="#9ca3af" text-anchor="middle">0.4</text>
+  <text x="332" y="72" font-size="9" fill="#9ca3af" text-anchor="middle">0.6</text>
+  <text x="436" y="72" font-size="9" fill="#9ca3af" text-anchor="middle">0.8</text>
+  <text x="540" y="72" font-size="9" fill="#9ca3af" text-anchor="middle">1.0</text>
+  <!-- range labels -->
+  <text x="72"  y="82" font-size="9" fill="#9ca3af" text-anchor="middle">0.00–0.19</text>
+  <text x="176" y="82" font-size="9" fill="#9ca3af" text-anchor="middle">0.20–0.39</text>
+  <text x="280" y="82" font-size="9" fill="#9ca3af" text-anchor="middle">0.40–0.59</text>
+  <text x="384" y="82" font-size="9" fill="#9ca3af" text-anchor="middle">0.60–0.79</text>
+  <text x="488" y="82" font-size="9" fill="#9ca3af" text-anchor="middle">0.80–1.00</text>
+</svg>

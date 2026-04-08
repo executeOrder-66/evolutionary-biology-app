@@ -1,0 +1,162 @@
+<svg width="560" height="225" viewBox="0 0 560 225" xmlns="http://www.w3.org/2000/svg" font-family="system-ui,-apple-system,sans-serif">
+  <rect width="560" height="225" rx="12" fill="white" stroke="#e5e7eb" stroke-width="1.5"/>
+  <!-- header label -->
+  <text x="280" y="18" font-size="11" font-weight="700" fill="#374151" text-anchor="middle">FAMILIES VIEW — Lineage tree with 5 family lanes, each bacterium as a circle</text>
+
+  <!-- lane boundaries (5 lanes, each ~100px wide, with 12px padding each side) -->
+  <!-- Lane centers: 68, 168, 278, 388, 498 (approx) -->
+  <!-- Dividers at x=112, 224, 336, 448 -->
+  <line x1="112" y1="26" x2="112" y2="215" stroke="#f3f4f6" stroke-width="1" stroke-dasharray="4,3"/>
+  <line x1="224" y1="26" x2="224" y2="215" stroke="#f3f4f6" stroke-width="1" stroke-dasharray="4,3"/>
+  <line x1="336" y1="26" x2="336" y2="215" stroke="#f3f4f6" stroke-width="1" stroke-dasharray="4,3"/>
+  <line x1="448" y1="26" x2="448" y2="215" stroke="#f3f4f6" stroke-width="1" stroke-dasharray="4,3"/>
+
+  <!-- Family name headers -->
+  <text x="56"  y="30" font-size="9" fill="#ef4444" text-anchor="middle" font-weight="600">Tiny</text>
+  <text x="168" y="30" font-size="9" fill="#f97316" text-anchor="middle" font-weight="600">Scout</text>
+  <text x="280" y="30" font-size="9" fill="#a16207" text-anchor="middle" font-weight="600">Patches</text>
+  <text x="392" y="30" font-size="9" fill="#1d4ed8" text-anchor="middle" font-weight="600">Rusty</text>
+  <text x="504" y="30" font-size="9" fill="#15803d" text-anchor="middle" font-weight="600">Tank</text>
+
+  <!-- Row heights (gen 0..4): y = 50, 90, 130, 170, 205 -->
+  <!-- Gen labels -->
+  <text x="6" y="54"  font-size="8" fill="#9ca3af">0</text>
+  <text x="6" y="94"  font-size="8" fill="#9ca3af">1</text>
+  <text x="6" y="134" font-size="8" fill="#9ca3af">2</text>
+  <text x="6" y="163" font-size="8" fill="#9ca3af" font-weight="700">— 3 —</text>
+  <text x="6" y="209" font-size="8" fill="#9ca3af">4</text>
+
+  <!-- Antibiotic line at gen 3 (y=170 centerline) -->
+  <line x1="14" y1="170" x2="546" y2="170" stroke="#dc2626" stroke-width="1.5" stroke-dasharray="6,4" opacity="0.7"/>
+  <text x="340" y="165" font-size="9" fill="#dc2626" font-weight="600">Antibiotics introduced</text>
+
+  <!-- ========= TINY (x-center=56, color #ef4444) ========= -->
+  <!-- gen 0: 3 nodes at x=36,56,76 -->
+  <circle cx="36"  cy="50" r="7" fill="#ef4444"/>
+  <circle cx="56"  cy="50" r="7" fill="#ef4444"/>
+  <circle cx="76"  cy="50" r="7" fill="#ef4444"/>
+  <!-- gen 1: 3 nodes -->
+  <line x1="36" y1="57" x2="36" y2="83" stroke="#ef4444" stroke-width="1.2" opacity="0.6"/>
+  <line x1="56" y1="57" x2="56" y2="83" stroke="#ef4444" stroke-width="1.2" opacity="0.6"/>
+  <line x1="76" y1="57" x2="76" y2="83" stroke="#ef4444" stroke-width="1.2" opacity="0.6"/>
+  <circle cx="36"  cy="90" r="7" fill="#ef4444"/>
+  <circle cx="56"  cy="90" r="7" fill="#ef4444"/>
+  <circle cx="76"  cy="90" r="7" fill="#ef4444"/>
+  <!-- gen 2: 3 nodes -->
+  <line x1="36" y1="97" x2="36" y2="123" stroke="#ef4444" stroke-width="1.2" opacity="0.6"/>
+  <line x1="56" y1="97" x2="56" y2="123" stroke="#ef4444" stroke-width="1.2" opacity="0.6"/>
+  <line x1="76" y1="97" x2="76" y2="123" stroke="#ef4444" stroke-width="1.2" opacity="0.6"/>
+  <circle cx="36"  cy="130" r="7" fill="#ef4444"/>
+  <circle cx="56"  cy="130" r="7" fill="#ef4444"/>
+  <circle cx="76"  cy="130" r="7" fill="#ef4444"/>
+  <!-- antibiotic line at y=170 — after this, Tiny dies out -->
+  <!-- gen 4 (after antibiotics): dead nodes (gray X) -->
+  <circle cx="46"  cy="205" r="7" fill="#e5e7eb" stroke="#d1d5db" stroke-width="1"/>
+  <line x1="41" y1="200" x2="51" y2="210" stroke="#9ca3af" stroke-width="1.5" stroke-linecap="round"/>
+  <line x1="51" y1="200" x2="41" y2="210" stroke="#9ca3af" stroke-width="1.5" stroke-linecap="round"/>
+  <circle cx="66"  cy="205" r="7" fill="#e5e7eb" stroke="#d1d5db" stroke-width="1"/>
+  <line x1="61" y1="200" x2="71" y2="210" stroke="#9ca3af" stroke-width="1.5" stroke-linecap="round"/>
+  <line x1="71" y1="200" x2="61" y2="210" stroke="#9ca3af" stroke-width="1.5" stroke-linecap="round"/>
+  <line x1="56" y1="137" x2="56" y2="198" stroke="#d1d5db" stroke-width="1" stroke-dasharray="3,3"/>
+
+  <!-- ========= SCOUT (x-center=168, color #f97316) ========= -->
+  <circle cx="148" cy="50" r="7" fill="#f97316"/>
+  <circle cx="168" cy="50" r="7" fill="#f97316"/>
+  <circle cx="188" cy="50" r="7" fill="#f97316"/>
+  <line x1="148" y1="57" x2="148" y2="83" stroke="#f97316" stroke-width="1.2" opacity="0.6"/>
+  <line x1="168" y1="57" x2="168" y2="83" stroke="#f97316" stroke-width="1.2" opacity="0.6"/>
+  <line x1="188" y1="57" x2="188" y2="83" stroke="#f97316" stroke-width="1.2" opacity="0.6"/>
+  <circle cx="148" cy="90" r="7" fill="#f97316"/>
+  <circle cx="168" cy="90" r="7" fill="#f97316"/>
+  <circle cx="188" cy="90" r="7" fill="#f97316"/>
+  <line x1="148" y1="97" x2="148" y2="123" stroke="#f97316" stroke-width="1.2" opacity="0.6"/>
+  <line x1="168" y1="97" x2="168" y2="123" stroke="#f97316" stroke-width="1.2" opacity="0.6"/>
+  <line x1="188" y1="97" x2="188" y2="123" stroke="#f97316" stroke-width="1.2" opacity="0.6"/>
+  <circle cx="148" cy="130" r="7" fill="#f97316"/>
+  <circle cx="168" cy="130" r="7" fill="#f97316"/>
+  <circle cx="188" cy="130" r="7" fill="#f97316"/>
+  <!-- after antibiotics: 1 survives, 2 die -->
+  <circle cx="158" cy="205" r="7" fill="#f97316" opacity="0.5"/>
+  <circle cx="178" cy="205" r="7" fill="#e5e7eb" stroke="#d1d5db" stroke-width="1"/>
+  <line x1="173" y1="200" x2="183" y2="210" stroke="#9ca3af" stroke-width="1.5" stroke-linecap="round"/>
+  <line x1="183" y1="200" x2="173" y2="210" stroke="#9ca3af" stroke-width="1.5" stroke-linecap="round"/>
+  <line x1="168" y1="137" x2="163" y2="198" stroke="#f97316" stroke-width="1" opacity="0.5"/>
+  <line x1="168" y1="137" x2="178" y2="198" stroke="#d1d5db" stroke-width="1" stroke-dasharray="3,3"/>
+
+  <!-- ========= PATCHES (x-center=280, color #eab308) ========= -->
+  <circle cx="260" cy="50" r="7" fill="#eab308"/>
+  <circle cx="280" cy="50" r="7" fill="#eab308"/>
+  <circle cx="300" cy="50" r="7" fill="#eab308"/>
+  <line x1="260" y1="57" x2="260" y2="83" stroke="#eab308" stroke-width="1.2" opacity="0.6"/>
+  <line x1="280" y1="57" x2="280" y2="83" stroke="#eab308" stroke-width="1.2" opacity="0.6"/>
+  <line x1="300" y1="57" x2="300" y2="83" stroke="#eab308" stroke-width="1.2" opacity="0.6"/>
+  <circle cx="260" cy="90" r="7" fill="#eab308"/>
+  <circle cx="280" cy="90" r="7" fill="#eab308"/>
+  <circle cx="300" cy="90" r="7" fill="#eab308"/>
+  <line x1="260" y1="97" x2="260" y2="123" stroke="#eab308" stroke-width="1.2" opacity="0.6"/>
+  <line x1="280" y1="97" x2="280" y2="123" stroke="#eab308" stroke-width="1.2" opacity="0.6"/>
+  <line x1="300" y1="97" x2="300" y2="123" stroke="#eab308" stroke-width="1.2" opacity="0.6"/>
+  <circle cx="260" cy="130" r="7" fill="#eab308"/>
+  <circle cx="280" cy="130" r="7" fill="#eab308"/>
+  <circle cx="300" cy="130" r="7" fill="#eab308"/>
+  <!-- after antibiotics: 2 survive, 1 dies -->
+  <circle cx="264" cy="205" r="7" fill="#eab308"/>
+  <circle cx="284" cy="205" r="7" fill="#eab308"/>
+  <circle cx="304" cy="205" r="7" fill="#e5e7eb" stroke="#d1d5db" stroke-width="1"/>
+  <line x1="299" y1="200" x2="309" y2="210" stroke="#9ca3af" stroke-width="1.5" stroke-linecap="round"/>
+  <line x1="309" y1="200" x2="299" y2="210" stroke="#9ca3af" stroke-width="1.5" stroke-linecap="round"/>
+  <line x1="260" y1="137" x2="264" y2="198" stroke="#eab308" stroke-width="1" opacity="0.6"/>
+  <line x1="280" y1="137" x2="284" y2="198" stroke="#eab308" stroke-width="1" opacity="0.6"/>
+  <line x1="300" y1="137" x2="304" y2="198" stroke="#d1d5db" stroke-width="1" stroke-dasharray="3,3"/>
+
+  <!-- ========= RUSTY (x-center=392, color #3b82f6) ========= -->
+  <circle cx="372" cy="50" r="7" fill="#3b82f6"/>
+  <circle cx="392" cy="50" r="7" fill="#3b82f6"/>
+  <circle cx="412" cy="50" r="7" fill="#3b82f6"/>
+  <line x1="372" y1="57" x2="372" y2="83" stroke="#3b82f6" stroke-width="1.2" opacity="0.6"/>
+  <line x1="392" y1="57" x2="392" y2="83" stroke="#3b82f6" stroke-width="1.2" opacity="0.6"/>
+  <line x1="412" y1="57" x2="412" y2="83" stroke="#3b82f6" stroke-width="1.2" opacity="0.6"/>
+  <circle cx="372" cy="90" r="7" fill="#3b82f6"/>
+  <circle cx="392" cy="90" r="7" fill="#3b82f6"/>
+  <circle cx="412" cy="90" r="7" fill="#3b82f6"/>
+  <line x1="372" y1="97" x2="372" y2="123" stroke="#3b82f6" stroke-width="1.2" opacity="0.6"/>
+  <line x1="392" y1="97" x2="392" y2="123" stroke="#3b82f6" stroke-width="1.2" opacity="0.6"/>
+  <line x1="412" y1="97" x2="412" y2="123" stroke="#3b82f6" stroke-width="1.2" opacity="0.6"/>
+  <circle cx="372" cy="130" r="7" fill="#3b82f6"/>
+  <circle cx="392" cy="130" r="7" fill="#3b82f6"/>
+  <circle cx="412" cy="130" r="7" fill="#3b82f6"/>
+  <!-- after antibiotics: all 3 survive -->
+  <circle cx="372" cy="205" r="8" fill="#3b82f6"/>
+  <circle cx="392" cy="205" r="8" fill="#3b82f6"/>
+  <circle cx="412" cy="205" r="8" fill="#3b82f6"/>
+  <line x1="372" y1="137" x2="372" y2="197" stroke="#3b82f6" stroke-width="1.2" opacity="0.6"/>
+  <line x1="392" y1="137" x2="392" y2="197" stroke="#3b82f6" stroke-width="1.2" opacity="0.6"/>
+  <line x1="412" y1="137" x2="412" y2="197" stroke="#3b82f6" stroke-width="1.2" opacity="0.6"/>
+
+  <!-- ========= TANK (x-center=504, color #22c55e) ========= -->
+  <circle cx="484" cy="50" r="7" fill="#22c55e"/>
+  <circle cx="504" cy="50" r="7" fill="#22c55e"/>
+  <circle cx="524" cy="50" r="7" fill="#22c55e"/>
+  <line x1="484" y1="57" x2="484" y2="83" stroke="#22c55e" stroke-width="1.2" opacity="0.6"/>
+  <line x1="504" y1="57" x2="504" y2="83" stroke="#22c55e" stroke-width="1.2" opacity="0.6"/>
+  <line x1="524" y1="57" x2="524" y2="83" stroke="#22c55e" stroke-width="1.2" opacity="0.6"/>
+  <circle cx="484" cy="90" r="7" fill="#22c55e"/>
+  <circle cx="504" cy="90" r="7" fill="#22c55e"/>
+  <circle cx="524" cy="90" r="7" fill="#22c55e"/>
+  <line x1="484" y1="97" x2="484" y2="123" stroke="#22c55e" stroke-width="1.2" opacity="0.6"/>
+  <line x1="504" y1="97" x2="504" y2="123" stroke="#22c55e" stroke-width="1.2" opacity="0.6"/>
+  <line x1="524" y1="97" x2="524" y2="123" stroke="#22c55e" stroke-width="1.2" opacity="0.6"/>
+  <circle cx="484" cy="130" r="7" fill="#22c55e"/>
+  <circle cx="504" cy="130" r="7" fill="#22c55e"/>
+  <circle cx="524" cy="130" r="7" fill="#22c55e"/>
+  <!-- after antibiotics: all survive, bigger circles (high fitness) -->
+  <circle cx="484" cy="205" r="9" fill="#22c55e"/>
+  <circle cx="504" cy="205" r="9" fill="#22c55e"/>
+  <circle cx="524" cy="205" r="9" fill="#22c55e"/>
+  <line x1="484" y1="137" x2="484" y2="196" stroke="#22c55e" stroke-width="1.5" opacity="0.7"/>
+  <line x1="504" y1="137" x2="504" y2="196" stroke="#22c55e" stroke-width="1.5" opacity="0.7"/>
+  <line x1="524" y1="137" x2="524" y2="196" stroke="#22c55e" stroke-width="1.5" opacity="0.7"/>
+
+  <!-- gen row label -->
+  <text x="14" y="38" font-size="8" fill="#9ca3af">Gen</text>
+</svg>

@@ -1,0 +1,36 @@
+<svg width="560" height="118" viewBox="0 0 560 118" xmlns="http://www.w3.org/2000/svg" font-family="system-ui,-apple-system,sans-serif">
+  <rect width="560" height="118" rx="12" fill="white" stroke="#e5e7eb" stroke-width="1.5"/>
+  <!-- status bar -->
+  <rect x="1" y="1" width="558" height="41" fill="#f9fafb" rx="11"/>
+  <rect x="1" y="28" width="558" height="14" fill="#f9fafb"/>
+  <line x1="0" y1="42" x2="560" y2="42" stroke="#f3f4f6" stroke-width="1"/>
+  <!-- dimmed stats -->
+  <text x="20" y="18" font-size="10" fill="#c4c9d4">Generation</text>
+  <text x="20" y="34" font-size="13" font-weight="700" fill="#c4c9d4">8</text>
+  <!-- Population highlighted -->
+  <rect x="83" y="5" width="115" height="32" rx="6" fill="#eff6ff" stroke="#3b82f6" stroke-width="1.5"/>
+  <text x="93" y="18" font-size="10" fill="#1d4ed8">Population</text>
+  <text x="93" y="34" font-size="13" font-weight="700" fill="#1d4ed8">498</text>
+  <text x="172" y="18" font-size="10" fill="#c4c9d4">Avg Resistance</text>
+  <text x="172" y="34" font-size="13" font-weight="700" fill="#c4c9d4">Medium</text>
+  <text x="305" y="18" font-size="10" fill="#c4c9d4">Survival Chance</text>
+  <text x="305" y="34" font-size="13" font-weight="700" fill="#c4c9d4">97%</text>
+  <!-- annotation -->
+  <line x1="140" y1="38" x2="140" y2="51" stroke="#3b82f6" stroke-width="1.5" stroke-dasharray="3,2"/>
+  <polygon points="135,50 145,50 140,55" fill="#3b82f6"/>
+  <!-- mini sparkline chart: population near 500, dip at gen 10, recovery -->
+  <text x="20" y="65" font-size="10" fill="#6b7280" font-weight="600">POPULATION OVER TIME</text>
+  <!-- chart area -->
+  <rect x="20" y="68" width="520" height="40" rx="4" fill="#f9fafb" stroke="#f3f4f6" stroke-width="1"/>
+  <!-- cap dashed line at y=75 (near top) -->
+  <line x1="22" y1="74" x2="538" y2="74" stroke="#9ca3af" stroke-width="0.8" stroke-dasharray="4,3"/>
+  <text x="540" y="77" font-size="8" fill="#9ca3af">cap 500</text>
+  <!-- line chart: flat near top (498), dip at ~60% width, then recovery -->
+  <!-- gen 0-9: y=76 (near cap); gen 10-12: dips to y=88; gen 13-20: recovers to y=76 -->
+  <polyline
+    points="22,76 80,76 130,76 180,76 220,76 250,76 268,88 285,94 300,90 320,82 345,77 400,76 460,76 536,76"
+    fill="none" stroke="#3b82f6" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+  <!-- dip annotation -->
+  <line x1="285" y1="68" x2="285" y2="95" stroke="#ef4444" stroke-width="0.8" stroke-dasharray="3,2" opacity="0.7"/>
+  <text x="287" y="77" font-size="8" fill="#dc2626">Gen 10</text>
+</svg>

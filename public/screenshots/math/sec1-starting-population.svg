@@ -1,0 +1,88 @@
+<svg width="560" height="148" viewBox="0 0 560 148" xmlns="http://www.w3.org/2000/svg" font-family="system-ui,-apple-system,sans-serif">
+  <rect width="560" height="148" rx="12" fill="white" stroke="#e5e7eb" stroke-width="1.5"/>
+  <!-- status bar -->
+  <rect x="1" y="1" width="558" height="41" fill="#f9fafb" rx="11"/>
+  <rect x="1" y="28" width="558" height="14" fill="#f9fafb"/>
+  <line x1="0" y1="42" x2="560" y2="42" stroke="#f3f4f6" stroke-width="1"/>
+  <text x="20" y="18" font-size="10" fill="#9ca3af">Generation</text>
+  <text x="20" y="34" font-size="13" font-weight="700" fill="#111827">0</text>
+  <text x="95" y="18" font-size="10" fill="#9ca3af">Population</text>
+  <text x="95" y="34" font-size="13" font-weight="700" fill="#111827">100</text>
+  <text x="172" y="18" font-size="10" fill="#9ca3af">Avg Resistance</text>
+  <text x="172" y="34" font-size="13" font-weight="700" fill="#10b981">Medium</text>
+  <text x="305" y="18" font-size="10" fill="#9ca3af">Survival Chance</text>
+  <text x="305" y="34" font-size="13" font-weight="700" fill="#111827">97%</text>
+  <!-- view toggle -->
+  <rect x="438" y="11" width="108" height="20" rx="5" fill="#f3f4f6"/>
+  <rect x="439" y="12" width="33" height="18" rx="4" fill="white" stroke="#e5e7eb" stroke-width="0.5"/>
+  <text x="446" y="24" font-size="8" font-weight="600" fill="#374151">families</text>
+  <text x="480" y="24" font-size="8" fill="#9ca3af">histogram</text>
+  <!-- individual bacteria label -->
+  <text x="20" y="57" font-size="10" fill="#9ca3af" font-weight="600" letter-spacing="0.03em">INDIVIDUAL BACTERIA (100 at generation 0)</text>
+  <!-- row 1: y=74 -->
+  <circle cx="22"  cy="74" r="6" fill="#ef4444" opacity="0.85"/>
+  <circle cx="44"  cy="74" r="6" fill="#22c55e" opacity="0.85"/>
+  <circle cx="66"  cy="74" r="6" fill="#3b82f6" opacity="0.85"/>
+  <circle cx="88"  cy="74" r="6" fill="#eab308" opacity="0.85"/>
+  <circle cx="110" cy="74" r="6" fill="#f97316" opacity="0.85"/>
+  <circle cx="132" cy="74" r="6" fill="#22c55e" opacity="0.85"/>
+  <circle cx="154" cy="74" r="6" fill="#ef4444" opacity="0.85"/>
+  <circle cx="176" cy="74" r="6" fill="#3b82f6" opacity="0.85"/>
+  <circle cx="198" cy="74" r="6" fill="#eab308" opacity="0.85"/>
+  <circle cx="220" cy="74" r="6" fill="#22c55e" opacity="0.85"/>
+  <circle cx="242" cy="74" r="6" fill="#f97316" opacity="0.85"/>
+  <circle cx="264" cy="74" r="6" fill="#ef4444" opacity="0.85"/>
+  <circle cx="286" cy="74" r="6" fill="#3b82f6" opacity="0.85"/>
+  <circle cx="308" cy="74" r="6" fill="#eab308" opacity="0.85"/>
+  <circle cx="330" cy="74" r="6" fill="#22c55e" opacity="0.85"/>
+  <circle cx="352" cy="74" r="6" fill="#ef4444" opacity="0.85"/>
+  <circle cx="374" cy="74" r="6" fill="#f97316" opacity="0.85"/>
+  <circle cx="396" cy="74" r="6" fill="#3b82f6" opacity="0.85"/>
+  <circle cx="418" cy="74" r="6" fill="#22c55e" opacity="0.85"/>
+  <!-- row 2: y=93 -->
+  <circle cx="22"  cy="93" r="6" fill="#3b82f6" opacity="0.85"/>
+  <circle cx="44"  cy="93" r="6" fill="#ef4444" opacity="0.85"/>
+  <circle cx="66"  cy="93" r="6" fill="#f97316" opacity="0.85"/>
+  <circle cx="88"  cy="93" r="6" fill="#22c55e" opacity="0.85"/>
+  <circle cx="110" cy="93" r="6" fill="#3b82f6" opacity="0.85"/>
+  <circle cx="132" cy="93" r="6" fill="#ef4444" opacity="0.85"/>
+  <circle cx="154" cy="93" r="6" fill="#eab308" opacity="0.85"/>
+  <circle cx="176" cy="93" r="6" fill="#f97316" opacity="0.85"/>
+  <circle cx="198" cy="93" r="6" fill="#22c55e" opacity="0.85"/>
+  <circle cx="220" cy="93" r="6" fill="#3b82f6" opacity="0.85"/>
+  <circle cx="242" cy="93" r="6" fill="#ef4444" opacity="0.85"/>
+  <circle cx="264" cy="93" r="6" fill="#eab308" opacity="0.85"/>
+  <circle cx="286" cy="93" r="6" fill="#22c55e" opacity="0.85"/>
+  <circle cx="308" cy="93" r="6" fill="#f97316" opacity="0.85"/>
+  <circle cx="330" cy="93" r="6" fill="#3b82f6" opacity="0.85"/>
+  <circle cx="352" cy="93" r="6" fill="#ef4444" opacity="0.85"/>
+  <circle cx="374" cy="93" r="6" fill="#22c55e" opacity="0.85"/>
+  <circle cx="396" cy="93" r="6" fill="#f97316" opacity="0.85"/>
+  <circle cx="418" cy="93" r="6" fill="#3b82f6" opacity="0.85"/>
+  <!-- row 3: y=112 -->
+  <circle cx="22"  cy="112" r="6" fill="#eab308" opacity="0.85"/>
+  <circle cx="44"  cy="112" r="6" fill="#3b82f6" opacity="0.85"/>
+  <circle cx="66"  cy="112" r="6" fill="#22c55e" opacity="0.85"/>
+  <circle cx="88"  cy="112" r="6" fill="#ef4444" opacity="0.85"/>
+  <circle cx="110" cy="112" r="6" fill="#3b82f6" opacity="0.85"/>
+  <circle cx="132" cy="112" r="6" fill="#f97316" opacity="0.85"/>
+  <circle cx="154" cy="112" r="6" fill="#22c55e" opacity="0.85"/>
+  <circle cx="176" cy="112" r="6" fill="#ef4444" opacity="0.85"/>
+  <circle cx="198" cy="112" r="6" fill="#eab308" opacity="0.85"/>
+  <circle cx="220" cy="112" r="6" fill="#f97316" opacity="0.85"/>
+  <circle cx="242" cy="112" r="6" fill="#3b82f6" opacity="0.85"/>
+  <circle cx="264" cy="112" r="6" fill="#22c55e" opacity="0.85"/>
+  <circle cx="286" cy="112" r="6" fill="#ef4444" opacity="0.85"/>
+  <circle cx="308" cy="112" r="6" fill="#eab308" opacity="0.85"/>
+  <circle cx="330" cy="112" r="6" fill="#f97316" opacity="0.85"/>
+  <circle cx="352" cy="112" r="6" fill="#3b82f6" opacity="0.85"/>
+  <circle cx="374" cy="112" r="6" fill="#22c55e" opacity="0.85"/>
+  <circle cx="396" cy="112" r="6" fill="#ef4444" opacity="0.85"/>
+  <circle cx="418" cy="112" r="6" fill="#f97316" opacity="0.85"/>
+  <!-- "+43 more" badge -->
+  <rect x="440" y="68" width="100" height="54" rx="8" fill="#f9fafb" stroke="#e5e7eb" stroke-width="1"/>
+  <text x="490" y="95" font-size="18" font-weight="800" fill="#6b7280" text-anchor="middle">+43</text>
+  <text x="490" y="111" font-size="10" fill="#9ca3af" text-anchor="middle">more</text>
+  <!-- footer -->
+  <text x="20" y="138" font-size="10" fill="#9ca3af">Each dot = 1 bacterium with a random resistance value. Colors show the 5 resistance families.</text>
+</svg>

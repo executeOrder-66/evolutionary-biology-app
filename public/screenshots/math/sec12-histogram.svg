@@ -1,0 +1,63 @@
+<svg width="560" height="168" viewBox="0 0 560 168" xmlns="http://www.w3.org/2000/svg" font-family="system-ui,-apple-system,sans-serif">
+  <rect width="560" height="168" rx="12" fill="white" stroke="#e5e7eb" stroke-width="1.5"/>
+  <text x="280" y="18" font-size="11" font-weight="700" fill="#374151" text-anchor="middle">HISTOGRAM VIEW — Resistance distribution shifts right as antibiotics select for resistance</text>
+
+  <!-- left panel: before antibiotics (gen 5) -->
+  <rect x="10" y="24" width="265" height="136" rx="8" fill="#f9fafb" stroke="#f3f4f6" stroke-width="1"/>
+  <text x="142" y="40" font-size="10" font-weight="700" fill="#374151" text-anchor="middle">Before antibiotics (Gen 5)</text>
+  <text x="142" y="52" font-size="9" fill="#9ca3af" text-anchor="middle">roughly flat — all resistance values present</text>
+
+  <!-- 24 uniform bars (gen5: all roughly equal height ~55%) -->
+  <!-- bar width = 220/24 ≈ 9px, start x=22 -->
+  <!-- Each bar = 9px wide, 2px gap, height ~40px for "uniform" -->
+  <!-- Using hsl gradient: green to red -->
+  <defs>
+    <linearGradient id="bar-grad-l" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%"   stop-color="#22c55e"/>
+      <stop offset="50%"  stop-color="#eab308"/>
+      <stop offset="100%" stop-color="#ef4444"/>
+    </linearGradient>
+  </defs>
+  <!-- simplified: 12 bars representing 24 bins, uniform height -->
+  <rect x="22"  y="95" width="16" height="38" rx="1" fill="#22c55e" opacity="0.8"/>
+  <rect x="40"  y="92" width="16" height="41" rx="1" fill="#4ade80" opacity="0.8"/>
+  <rect x="58"  y="97" width="16" height="36" rx="1" fill="#84cc16" opacity="0.8"/>
+  <rect x="76"  y="93" width="16" height="40" rx="1" fill="#a3e635" opacity="0.8"/>
+  <rect x="94"  y="96" width="16" height="37" rx="1" fill="#bef264" opacity="0.8"/>
+  <rect x="112" y="94" width="16" height="39" rx="1" fill="#facc15" opacity="0.8"/>
+  <rect x="130" y="97" width="16" height="36" rx="1" fill="#fbbf24" opacity="0.8"/>
+  <rect x="148" y="92" width="16" height="41" rx="1" fill="#fb923c" opacity="0.8"/>
+  <rect x="166" y="95" width="16" height="38" rx="1" fill="#f97316" opacity="0.8"/>
+  <rect x="184" y="94" width="16" height="39" rx="1" fill="#ef4444" opacity="0.8"/>
+  <rect x="202" y="96" width="16" height="37" rx="1" fill="#dc2626" opacity="0.8"/>
+  <rect x="220" y="93" width="16" height="40" rx="1" fill="#b91c1c" opacity="0.8"/>
+  <!-- x-axis -->
+  <line x1="22" y1="134" x2="238" y2="134" stroke="#e5e7eb" stroke-width="1"/>
+  <text x="22"  y="144" font-size="8" fill="#9ca3af">Low</text>
+  <text x="228" y="144" font-size="8" fill="#9ca3af" text-anchor="end">High</text>
+  <text x="130" y="155" font-size="9" fill="#9ca3af" text-anchor="middle">resistance →</text>
+
+  <!-- right panel: after antibiotics (gen 25) -->
+  <rect x="285" y="24" width="265" height="136" rx="8" fill="#f9fafb" stroke="#f3f4f6" stroke-width="1"/>
+  <text x="417" y="40" font-size="10" font-weight="700" fill="#374151" text-anchor="middle">After antibiotics (Gen 25)</text>
+  <text x="417" y="52" font-size="9" fill="#9ca3af" text-anchor="middle">right-skewed — only high resistance survives</text>
+
+  <!-- after: left bars empty, right bars tall -->
+  <rect x="297" y="131" width="16" height="2"  rx="1" fill="#22c55e" opacity="0.5"/><!-- very low -->
+  <rect x="315" y="130" width="16" height="3"  rx="1" fill="#4ade80" opacity="0.5"/>
+  <rect x="333" y="129" width="16" height="4"  rx="1" fill="#84cc16" opacity="0.5"/>
+  <rect x="351" y="127" width="16" height="6"  rx="1" fill="#a3e635" opacity="0.5"/>
+  <rect x="369" y="124" width="16" height="9"  rx="1" fill="#bef264" opacity="0.6"/>
+  <rect x="387" y="118" width="16" height="15" rx="1" fill="#facc15" opacity="0.7"/>
+  <rect x="405" y="108" width="16" height="25" rx="1" fill="#fbbf24" opacity="0.8"/>
+  <rect x="423" y="90"  width="16" height="43" rx="1" fill="#fb923c" opacity="0.8"/>
+  <rect x="441" y="68"  width="16" height="65" rx="1" fill="#f97316" opacity="0.85"/>
+  <rect x="459" y="56"  width="16" height="77" rx="1" fill="#ef4444" opacity="0.85"/>
+  <rect x="477" y="62"  width="16" height="71" rx="1" fill="#dc2626" opacity="0.9"/>
+  <rect x="495" y="58"  width="16" height="75" rx="1" fill="#b91c1c" opacity="0.9"/>
+  <!-- x-axis -->
+  <line x1="297" y1="134" x2="513" y2="134" stroke="#e5e7eb" stroke-width="1"/>
+  <text x="297" y="144" font-size="8" fill="#9ca3af">Low</text>
+  <text x="513" y="144" font-size="8" fill="#9ca3af" text-anchor="end">High</text>
+  <text x="405" y="155" font-size="9" fill="#9ca3af" text-anchor="middle">resistance →</text>
+</svg>

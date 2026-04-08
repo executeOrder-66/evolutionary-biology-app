@@ -1,0 +1,47 @@
+<svg width="560" height="130" viewBox="0 0 560 130" xmlns="http://www.w3.org/2000/svg" font-family="system-ui,-apple-system,sans-serif">
+  <rect width="560" height="130" rx="12" fill="white" stroke="#e5e7eb" stroke-width="1.5"/>
+  <!-- left: antibiotic badge mockup -->
+  <text x="20" y="24" font-size="11" fill="#6b7280" font-weight="600">STATUS BAR BADGE (appears at Gen 10)</text>
+  <!-- badge -->
+  <rect x="20" y="32" width="158" height="28" rx="14" fill="#fef2f2" stroke="#fecaca" stroke-width="1.5"/>
+  <circle cx="40" cy="46" r="4" fill="#ef4444"/>
+  <!-- pulse ring animation placeholder -->
+  <text x="50" y="50" font-size="11" font-weight="700" fill="#dc2626">Antibiotics  55%</text>
+  <!-- right: ramp chart -->
+  <text x="210" y="24" font-size="11" fill="#6b7280" font-weight="600">ANTIBIOTIC STRENGTH RAMP (Gen 10 → 16+)</text>
+  <!-- chart axes -->
+  <line x1="210" y1="100" x2="540" y2="100" stroke="#e5e7eb" stroke-width="1.5"/>
+  <line x1="210" y1="36"  x2="210" y2="100" stroke="#e5e7eb" stroke-width="1.5"/>
+  <!-- y-axis labels -->
+  <text x="205" y="40"  font-size="9" fill="#9ca3af" text-anchor="end">0.55</text>
+  <text x="205" y="68"  font-size="9" fill="#9ca3af" text-anchor="end">0.30</text>
+  <text x="205" y="100" font-size="9" fill="#9ca3af" text-anchor="end">0.00</text>
+  <!-- x-axis labels (gen 10 to 16+) -->
+  <text x="210" y="112" font-size="9" fill="#9ca3af" text-anchor="middle">10</text>
+  <text x="255" y="112" font-size="9" fill="#9ca3af" text-anchor="middle">11</text>
+  <text x="300" y="112" font-size="9" fill="#9ca3af" text-anchor="middle">12</text>
+  <text x="345" y="112" font-size="9" fill="#9ca3af" text-anchor="middle">13</text>
+  <text x="390" y="112" font-size="9" fill="#9ca3af" text-anchor="middle">14</text>
+  <text x="435" y="112" font-size="9" fill="#9ca3af" text-anchor="middle">15</text>
+  <text x="480" y="112" font-size="9" fill="#9ca3af" text-anchor="middle">16+</text>
+  <text x="370" y="122" font-size="9" fill="#9ca3af" text-anchor="middle">Generation</text>
+  <!-- staircase bars showing ramp -->
+  <!-- gen 10: strength=0.00 → bar height 0 -->
+  <!-- gen 11: strength=0.10 → 0.10/0.55 * 60 = 10.9 px -->
+  <!-- gen 12: strength=0.20 → 21.8px -->
+  <!-- gen 13: strength=0.30 → 32.7px -->
+  <!-- gen 14: strength=0.40 → 43.6px -->
+  <!-- gen 15: strength=0.50 → 54.5px -->
+  <!-- gen 16: strength=0.55 → 60px (max) -->
+  <!-- bars are anchored at y=100, width 34px each, gap 11px -->
+  <rect x="214" y="100" width="34" height="0"    rx="2" fill="#fca5a5"/>
+  <rect x="258" y="89"  width="34" height="11"   rx="2" fill="#f87171"/>
+  <rect x="303" y="78"  width="34" height="22"   rx="2" fill="#f87171"/>
+  <rect x="348" y="67"  width="34" height="33"   rx="2" fill="#ef4444"/>
+  <rect x="393" y="56"  width="34" height="44"   rx="2" fill="#dc2626"/>
+  <rect x="438" y="46"  width="34" height="54"   rx="2" fill="#dc2626"/>
+  <rect x="483" y="40"  width="34" height="60"   rx="2" fill="#b91c1c"/>
+  <!-- max line -->
+  <line x1="210" y1="40" x2="540" y2="40" stroke="#b91c1c" stroke-width="1" stroke-dasharray="4,3" opacity="0.5"/>
+  <text x="543" y="43" font-size="9" fill="#b91c1c">max</text>
+</svg>

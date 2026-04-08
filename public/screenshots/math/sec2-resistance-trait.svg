@@ -1,0 +1,47 @@
+<svg width="560" height="108" viewBox="0 0 560 108" xmlns="http://www.w3.org/2000/svg" font-family="system-ui,-apple-system,sans-serif">
+  <rect width="560" height="108" rx="12" fill="white" stroke="#e5e7eb" stroke-width="1.5"/>
+  <!-- status bar bg -->
+  <rect x="1" y="1" width="558" height="41" fill="#f9fafb" rx="11"/>
+  <rect x="1" y="28" width="558" height="14" fill="#f9fafb"/>
+  <line x1="0" y1="42" x2="560" y2="42" stroke="#f3f4f6" stroke-width="1"/>
+  <!-- stats (dimmed except Avg Resistance) -->
+  <text x="20" y="18" font-size="10" fill="#c4c9d4">Generation</text>
+  <text x="20" y="34" font-size="13" font-weight="700" fill="#c4c9d4">12</text>
+  <text x="95" y="18" font-size="10" fill="#c4c9d4">Population</text>
+  <text x="95" y="34" font-size="13" font-weight="700" fill="#c4c9d4">486</text>
+  <!-- Avg Resistance — highlighted -->
+  <rect x="162" y="5" width="130" height="32" rx="6" fill="#ecfdf5" stroke="#10b981" stroke-width="1.5"/>
+  <text x="172" y="18" font-size="10" fill="#059669">Avg Resistance</text>
+  <text x="172" y="34" font-size="13" font-weight="700" fill="#059669">Medium</text>
+  <!-- annotation arrow -->
+  <line x1="227" y1="38" x2="227" y2="52" stroke="#10b981" stroke-width="1.5" stroke-dasharray="3,2"/>
+  <polygon points="222,50 232,50 227,56" fill="#10b981"/>
+  <!-- dimmed survival chance -->
+  <text x="305" y="18" font-size="10" fill="#c4c9d4">Survival Chance</text>
+  <text x="305" y="34" font-size="13" font-weight="700" fill="#c4c9d4">71%</text>
+  <!-- resistance scale bar -->
+  <defs>
+    <linearGradient id="res-grad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%"   stop-color="#22c55e"/>
+      <stop offset="25%"  stop-color="#84cc16"/>
+      <stop offset="50%"  stop-color="#eab308"/>
+      <stop offset="75%"  stop-color="#f97316"/>
+      <stop offset="100%" stop-color="#ef4444"/>
+    </linearGradient>
+  </defs>
+  <rect x="20" y="63" width="520" height="12" rx="6" fill="url(#res-grad)"/>
+  <!-- labels -->
+  <text x="20"  y="88" font-size="10" fill="#9ca3af" text-anchor="middle">0.0</text>
+  <text x="150" y="88" font-size="10" fill="#9ca3af" text-anchor="middle">0.25</text>
+  <text x="280" y="88" font-size="10" fill="#9ca3af" text-anchor="middle">0.5</text>
+  <text x="410" y="88" font-size="10" fill="#9ca3af" text-anchor="middle">0.75</text>
+  <text x="540" y="88" font-size="10" fill="#9ca3af" text-anchor="middle">1.0</text>
+  <text x="20"  y="99" font-size="9" fill="#9ca3af" text-anchor="start">Very low</text>
+  <text x="121" y="99" font-size="9" fill="#9ca3af" text-anchor="middle">Low</text>
+  <text x="280" y="99" font-size="9" fill="#9ca3af" text-anchor="middle">Medium</text>
+  <text x="433" y="99" font-size="9" fill="#9ca3af" text-anchor="middle">High</text>
+  <text x="540" y="99" font-size="9" fill="#9ca3af" text-anchor="end">Very high</text>
+  <!-- marker at "medium" (~0.5) -->
+  <line x1="280" y1="62" x2="280" y2="76" stroke="#374151" stroke-width="1.5"/>
+  <circle cx="280" cy="69" r="5" fill="white" stroke="#374151" stroke-width="1.5"/>
+</svg>
