@@ -64,28 +64,28 @@ export default function TutorialViewer({ chapter, onClose }: TutorialViewerProps
   return (
     <div className="grid h-full grid-rows-[auto_1fr_auto] overflow-hidden">
       {/* Top bar — fixed in grid row */}
-      <div className="border-b border-gray-100 bg-white">
+      <div className="border-b border-gray-100 dark:border-gray-700 bg-white dark:bg-gray-900">
         <div className="mx-auto flex max-w-3xl items-center justify-between px-6 py-3">
           <div className="flex items-center gap-3">
             <button
               onClick={onClose}
-              className="flex h-8 w-8 items-center justify-center rounded-lg text-gray-400 transition-colors hover:bg-gray-100 hover:text-gray-600"
+              className="flex h-8 w-8 items-center justify-center rounded-lg text-gray-400 transition-colors hover:bg-gray-100 dark:hover:bg-gray-800 hover:text-gray-600 dark:hover:text-gray-300"
             >
               <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
               </svg>
             </button>
             <div>
-              <h2 className="text-sm font-bold text-gray-900">
+              <h2 className="text-sm font-bold text-gray-900 dark:text-gray-100">
                 {chapter.icon} {chapter.title}
               </h2>
-              <p className="text-[11px] text-gray-400">
+              <p className="text-[11px] text-gray-400 dark:text-gray-500">
                 Lesson {lessonIdx + 1}/{chapter.lessons.length}: {lesson.title}
               </p>
             </div>
           </div>
 
-          <span className="text-[12px] tabular-nums text-gray-400">
+          <span className="text-[12px] tabular-nums text-gray-400 dark:text-gray-500">
             {currentPageGlobal} / {totalPages}
           </span>
         </div>
@@ -99,10 +99,10 @@ export default function TutorialViewer({ chapter, onClose }: TutorialViewerProps
                 onClick={() => goToLesson(i)}
                 className={`flex-shrink-0 rounded-lg px-3 py-1.5 text-[11px] font-medium transition-all ${
                   i === lessonIdx
-                    ? 'bg-emerald-100 text-emerald-700 shadow-sm'
+                    ? 'bg-emerald-100 dark:bg-emerald-900/50 text-emerald-700 dark:text-emerald-300 shadow-sm'
                     : i < lessonIdx
-                      ? 'text-emerald-500 hover:bg-emerald-50'
-                      : 'text-gray-400 hover:bg-gray-100 hover:text-gray-600'
+                      ? 'text-emerald-500 dark:text-emerald-400 hover:bg-emerald-50 dark:hover:bg-emerald-900/30'
+                      : 'text-gray-400 dark:text-gray-500 hover:bg-gray-100 dark:hover:bg-gray-800 hover:text-gray-600 dark:hover:text-gray-300'
                 }`}
               >
                 <span className="mr-1">{l.icon}</span>
@@ -126,13 +126,13 @@ export default function TutorialViewer({ chapter, onClose }: TutorialViewerProps
           >
             {/* Illustration emoji (only if no diagram) */}
             {page.illustration && !page.diagramId && (
-              <div className="mb-5 flex h-16 w-16 items-center justify-center rounded-2xl bg-emerald-50 text-3xl">
+              <div className="mb-5 flex h-16 w-16 items-center justify-center rounded-2xl bg-emerald-50 dark:bg-emerald-900/30 text-3xl">
                 {page.illustration}
               </div>
             )}
 
             {/* Title */}
-            <h3 className="mb-4 text-2xl font-bold text-gray-900">
+            <h3 className="mb-4 text-2xl font-bold text-gray-900 dark:text-gray-100">
               {page.title}
             </h3>
 
@@ -140,20 +140,20 @@ export default function TutorialViewer({ chapter, onClose }: TutorialViewerProps
             {page.diagramId && <TutorialDiagram id={page.diagramId} />}
 
             {/* Body text */}
-            <div className="space-y-4 text-[16px] leading-relaxed text-gray-600">
+            <div className="space-y-4 text-[16px] leading-relaxed text-gray-600 dark:text-gray-300">
               {renderContent(page.content)}
             </div>
 
             {/* Key term callout */}
             {page.keyTerm && (
-              <div className="mt-6 rounded-xl border border-emerald-100 bg-emerald-50/60 px-5 py-4">
-                <p className="mb-1 text-[10px] font-bold uppercase tracking-wider text-emerald-600">
+              <div className="mt-6 rounded-xl border border-emerald-100 dark:border-emerald-800/50 bg-emerald-50/60 dark:bg-emerald-900/20 px-5 py-4">
+                <p className="mb-1 text-[10px] font-bold uppercase tracking-wider text-emerald-600 dark:text-emerald-400">
                   Key Term
                 </p>
-                <p className="text-sm font-bold text-emerald-800">
+                <p className="text-sm font-bold text-emerald-800 dark:text-emerald-200">
                   {page.keyTerm.term}
                 </p>
-                <p className="mt-1 text-[14px] leading-relaxed text-emerald-700">
+                <p className="mt-1 text-[14px] leading-relaxed text-emerald-700 dark:text-emerald-300">
                   {page.keyTerm.definition}
                 </p>
               </div>
@@ -165,12 +165,12 @@ export default function TutorialViewer({ chapter, onClose }: TutorialViewerProps
       </div>
 
       {/* Bottom navigation — pinned to bottom by grid */}
-      <div className="border-t border-gray-100 bg-white">
+      <div className="border-t border-gray-100 dark:border-gray-700 bg-white dark:bg-gray-900">
         <div className="mx-auto flex max-w-2xl items-center justify-between px-6 py-3">
           <button
             onClick={goPrev}
             disabled={!canPrev}
-            className="flex items-center gap-1.5 rounded-lg px-4 py-2 text-sm font-medium text-gray-500 transition-colors hover:bg-gray-50 hover:text-gray-700 disabled:opacity-25 disabled:hover:bg-transparent"
+            className="flex items-center gap-1.5 rounded-lg px-4 py-2 text-sm font-medium text-gray-500 dark:text-gray-400 transition-colors hover:bg-gray-50 dark:hover:bg-gray-800 hover:text-gray-700 dark:hover:text-gray-200 disabled:opacity-25 disabled:hover:bg-transparent"
           >
             <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
@@ -196,7 +196,7 @@ export default function TutorialViewer({ chapter, onClose }: TutorialViewerProps
                         ? 'w-4 bg-emerald-500'
                         : isPast
                           ? 'w-1.5 bg-emerald-300'
-                          : 'w-1.5 bg-gray-200'
+                          : 'w-1.5 bg-gray-200 dark:bg-gray-700'
                     }`}
                   />
                 );
@@ -245,8 +245,8 @@ function renderContent(text: string) {
       return (
         <ul key={i} className="space-y-2 pl-1">
           {lines.map((line, j) => (
-            <li key={j} className="flex gap-2.5 text-[16px] leading-relaxed text-gray-600">
-              <span className="mt-1 flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full bg-emerald-100 text-[10px] font-bold text-emerald-600">
+            <li key={j} className="flex gap-2.5 text-[16px] leading-relaxed text-gray-600 dark:text-gray-300">
+              <span className="mt-1 flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full bg-emerald-100 dark:bg-emerald-900/40 text-[10px] font-bold text-emerald-600 dark:text-emerald-400">
                 {/^\d+\./.test(line.trim())
                   ? line.trim().match(/^(\d+)/)?.[1]
                   : '•'}
@@ -264,7 +264,7 @@ function renderContent(text: string) {
     }
 
     return (
-      <p key={i} className="text-[16px] leading-relaxed text-gray-600">
+      <p key={i} className="text-[16px] leading-relaxed text-gray-600 dark:text-gray-300">
         {trimmed}
       </p>
     );

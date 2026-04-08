@@ -63,16 +63,16 @@ export default function ExplanationPanel() {
           <div className="absolute left-0 top-0 h-full w-0.5 bg-gradient-to-b from-emerald-400 to-teal-500" />
 
           <div className="mb-1.5 flex items-center justify-between">
-            <h3 className="text-sm font-bold text-gray-900">
+            <h3 className="text-sm font-bold text-gray-900 dark:text-gray-100">
               {displayStep?.title ?? 'Background'}
             </h3>
             {totalSteps > 0 && displayIndex >= 0 && (
-              <span className="flex h-5 min-w-[20px] items-center justify-center rounded-full bg-emerald-100 px-1.5 text-[10px] font-bold text-emerald-700">
+              <span className="flex h-5 min-w-[20px] items-center justify-center rounded-full bg-emerald-100 dark:bg-emerald-900/50 px-1.5 text-[10px] font-bold text-emerald-700 dark:text-emerald-300">
                 {displayIndex + 1}/{totalSteps}
               </span>
             )}
           </div>
-          <p className="text-[13px] leading-relaxed text-gray-500">
+          <p className="text-[13px] leading-relaxed text-gray-500 dark:text-gray-400">
             {displayStep?.content ?? educationalContent.background}
           </p>
 
@@ -149,9 +149,9 @@ export default function ExplanationPanel() {
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          className="card overflow-hidden border-emerald-100 bg-gradient-to-br from-emerald-50 to-teal-50/50 p-5"
+          className="card overflow-hidden border-emerald-100 dark:border-emerald-800/30 bg-gradient-to-br from-emerald-50 to-teal-50/50 dark:from-emerald-950/30 dark:to-teal-950/20 p-5"
         >
-          <h3 className="mb-2.5 flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-emerald-700">
+          <h3 className="mb-2.5 flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-emerald-700 dark:text-emerald-400">
             <svg
               className="h-3.5 w-3.5"
               fill="none"
@@ -171,9 +171,9 @@ export default function ExplanationPanel() {
             {educationalContent.objectives.map((obj, i) => (
               <li
                 key={i}
-                className="flex gap-2.5 text-[13px] leading-snug text-emerald-800"
+                className="flex gap-2.5 text-[13px] leading-snug text-emerald-800 dark:text-emerald-200"
               >
-                <span className="mt-1 flex h-4 w-4 flex-shrink-0 items-center justify-center rounded-full bg-emerald-200/60 text-[9px] font-bold text-emerald-700">
+                <span className="mt-1 flex h-4 w-4 flex-shrink-0 items-center justify-center rounded-full bg-emerald-200/60 dark:bg-emerald-900/40 text-[9px] font-bold text-emerald-700 dark:text-emerald-400">
                   {i + 1}
                 </span>
                 {obj}
@@ -186,12 +186,12 @@ export default function ExplanationPanel() {
       {/* Milestones timeline */}
       {generation > 0 && (
         <div className="card p-5">
-          <h3 className="mb-3 text-xs font-bold uppercase tracking-wider text-gray-400">
+          <h3 className="mb-3 text-xs font-bold uppercase tracking-wider text-gray-400 dark:text-gray-500">
             Milestones
           </h3>
           <div className="relative space-y-0">
             {/* Vertical line */}
-            <div className="absolute left-[7px] top-2 bottom-2 w-px bg-gray-100" />
+            <div className="absolute left-[7px] top-2 bottom-2 w-px bg-gray-100 dark:bg-gray-700" />
 
             {steps.map((step, i) => {
               const reached = generation >= step.triggerGeneration;
@@ -209,7 +209,7 @@ export default function ExplanationPanel() {
                         ? 'border-emerald-500 bg-emerald-500 shadow-md shadow-emerald-200'
                         : reached
                           ? 'border-emerald-400 bg-emerald-400'
-                          : 'border-gray-200 bg-white'
+                          : 'border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-800'
                     }`}
                   >
                     {reached && (
@@ -232,10 +232,10 @@ export default function ExplanationPanel() {
                     <p
                       className={`text-xs font-semibold leading-tight ${
                         isCurrent
-                          ? 'text-emerald-700'
+                          ? 'text-emerald-700 dark:text-emerald-300'
                           : reached
-                            ? 'text-gray-700'
-                            : 'text-gray-300'
+                            ? 'text-gray-700 dark:text-gray-300'
+                            : 'text-gray-300 dark:text-gray-600'
                       }`}
                     >
                       {step.title}
@@ -253,16 +253,16 @@ export default function ExplanationPanel() {
 
       {/* Key concepts */}
       <div className="card p-5">
-        <h3 className="mb-3 text-xs font-bold uppercase tracking-wider text-gray-400">
+        <h3 className="mb-3 text-xs font-bold uppercase tracking-wider text-gray-400 dark:text-gray-500">
           Key Concepts
         </h3>
         <div className="space-y-3">
           {educationalContent.keyConcepts.map((concept, i) => (
             <div key={i} className="group">
-              <dt className="mb-0.5 text-[13px] font-semibold text-gray-800">
+              <dt className="mb-0.5 text-[13px] font-semibold text-gray-800 dark:text-gray-200">
                 {concept.term}
               </dt>
-              <dd className="text-[12px] leading-relaxed text-gray-400">
+              <dd className="text-[12px] leading-relaxed text-gray-400 dark:text-gray-500">
                 {concept.definition}
               </dd>
             </div>
@@ -276,11 +276,11 @@ export default function ExplanationPanel() {
           onClick={() => navigate(SCENARIO_LINKS[scenario.id].storyRoute)}
           className="card group flex w-full items-center gap-3 p-4 text-left transition-all hover:shadow-md hover:border-emerald-200"
         >
-          <span className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-xl bg-amber-50 text-xl transition-transform group-hover:scale-110">
+          <span className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-xl bg-amber-50 dark:bg-amber-900/30 text-xl transition-transform group-hover:scale-110">
             {SCENARIO_LINKS[scenario.id].storyIcon}
           </span>
           <div className="min-w-0 flex-1">
-            <p className="text-[13px] font-bold text-gray-800">
+            <p className="text-[13px] font-bold text-gray-800 dark:text-gray-200">
               {SCENARIO_LINKS[scenario.id].storyLabel}
             </p>
             <p className="text-[11px] text-gray-400">
@@ -309,11 +309,11 @@ export default function ExplanationPanel() {
           onClick={() => navigate(`/tutorial/${SCENARIO_LINKS[scenario.id].tutorialId}`)}
           className="card group flex w-full items-center gap-3 p-4 text-left transition-all hover:shadow-md hover:border-emerald-200"
         >
-          <span className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-xl bg-emerald-50 text-xl transition-transform group-hover:scale-110">
+          <span className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-xl bg-emerald-50 dark:bg-emerald-900/30 text-xl transition-transform group-hover:scale-110">
             📖
           </span>
           <div className="min-w-0 flex-1">
-            <p className="text-[13px] font-bold text-gray-800">
+            <p className="text-[13px] font-bold text-gray-800 dark:text-gray-200">
               Full Tutorial
             </p>
             <p className="text-[11px] text-gray-400">

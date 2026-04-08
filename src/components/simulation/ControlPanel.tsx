@@ -130,10 +130,10 @@ export default function ControlPanel() {
 
         {/* Center: generation counter */}
         <div className="flex items-baseline gap-2">
-          <span className="text-2xl font-extrabold tabular-nums text-gray-900">
+          <span className="text-2xl font-extrabold tabular-nums text-gray-900 dark:text-gray-100">
             {generation}
           </span>
-          <span className="text-xs text-gray-400">/ {maxGen} gen</span>
+          <span className="text-xs text-gray-400 dark:text-gray-500">/ {maxGen} gen</span>
         </div>
 
         {/* Right: speed */}
@@ -161,7 +161,7 @@ export default function ControlPanel() {
               onChange={(e) => setSpeed(Number(e.target.value))}
               className="w-24"
             />
-            <span className="w-8 text-right text-xs font-semibold tabular-nums text-gray-600">
+            <span className="w-8 text-right text-xs font-semibold tabular-nums text-gray-600 dark:text-gray-400">
               {speed}x
             </span>
           </div>
@@ -169,8 +169,8 @@ export default function ControlPanel() {
       </div>
 
       {/* Keyboard hints */}
-      <div className="border-t border-gray-50 px-5 py-1.5">
-        <p className="text-center text-[10px] text-gray-300">
+      <div className="border-t border-gray-50 dark:border-gray-700 px-5 py-1.5">
+        <p className="text-center text-[10px] text-gray-300 dark:text-gray-600">
           <span className="rounded border border-gray-200 bg-gray-50 px-1 py-0.5 font-mono text-[9px]">Space</span> play/pause
           &nbsp;&nbsp;
           <span className="rounded border border-gray-200 bg-gray-50 px-1 py-0.5 font-mono text-[9px]">→</span> step
