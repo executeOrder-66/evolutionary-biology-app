@@ -2,6 +2,13 @@ import { useMemo } from 'react';
 import { motion } from 'framer-motion';
 import { useSimulationStore } from '../../store/simulationStore';
 
+/** Key event generations and their labels */
+const EVENT_MARKERS: { gen: number; label: string }[] = [
+  { gen: 10, label: 'Antibiotics' },
+  { gen: 15, label: 'Pollution' },
+  { gen: 20, label: 'Superpredator' },
+];
+
 export default function PopulationChart() {
   const history = useSimulationStore((s) => s.history);
   const scenario = useSimulationStore((s) => s.scenario);
@@ -15,18 +22,22 @@ export default function PopulationChart() {
       means: history.map((h) => h.traitMeans[traitName] ?? 0),
       sizes: history.map((h) => h.populationSize),
       fitnesses: history.map((h) => h.meanFitness),
+      generations: history.map((h) => h.generation),
     };
   }, [history, traitName]);
 
   if (!chartData || history.length < 2) {
     return (
       <div className="card flex h-36 items-center justify-center">
-        <p className="text-xs text-gray-300">
+        <p className="text-xs text-gray-500 dark:text-gray-400">
           Charts will appear as the simulation runs
         </p>
       </div>
     );
   }
+
+  // Determine which events have been reached
+  const activeEvents = EVENT_MARKERS.filter((e) => e.gen <= chartData.maxGen);
 
   return (
     <div className="grid gap-3 sm:grid-cols-3">
@@ -36,6 +47,7 @@ export default function PopulationChart() {
         maxGen={chartData.maxGen}
         color="#10b981"
         gradientId="trait"
+        events={activeEvents}
       />
       <MiniChart
         title="Avg Survival Chance"
@@ -43,6 +55,7 @@ export default function PopulationChart() {
         maxGen={chartData.maxGen}
         color="#3b82f6"
         gradientId="fitness"
+        events={activeEvents}
       />
       <MiniChart
         title="Population Size"
@@ -51,6 +64,7 @@ export default function PopulationChart() {
         color="#f59e0b"
         gradientId="pop"
         isCount
+        events={activeEvents}
       />
     </div>
   );
@@ -63,6 +77,7 @@ function MiniChart({
   color,
   gradientId,
   isCount = false,
+  events = [],
 }: {
   title: string;
   data: number[];
@@ -70,6 +85,7 @@ function MiniChart({
   color: string;
   gradientId: string;
   isCount?: boolean;
+  events?: { gen: number; label: string }[];
 }) {
   const w = 200;
   const h = 60;
@@ -93,6 +109,13 @@ function MiniChart({
   const prevValue = data.length > 1 ? data[data.length - 2] : currentValue;
   const trend = currentValue - prevValue;
 
+  // X-axis tick positions (every 10 generations)
+  const ticks: number[] = [];
+  for (let g = 0; g <= maxGen; g += 10) {
+    ticks.push(g);
+  }
+  if (ticks[ticks.length - 1] !== maxGen) ticks.push(maxGen);
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 10 }}
@@ -101,7 +124,7 @@ function MiniChart({
     >
       <div className="px-4 pt-3 pb-1">
         <div className="flex items-start justify-between">
-          <p className="text-[11px] font-medium text-gray-400">{title}</p>
+          <p className="text-xs font-medium text-gray-500 dark:text-gray-400">{title}</p>
           <div className="flex items-center gap-1">
             {trend !== 0 && (
               <svg
@@ -142,6 +165,54 @@ function MiniChart({
           </linearGradient>
         </defs>
 
+        {/* Event markers (#11) — vertical dashed lines at key generations */}
+        {events.map((evt) => {
+          const x = pad + (evt.gen / Math.max(maxGen, 1)) * (w - 2 * pad);
+          return (
+            <g key={evt.gen}>
+              <line
+                x1={x}
+                y1={0}
+                x2={x}
+                y2={h}
+                stroke="#ef4444"
+                strokeWidth={0.8}
+                strokeDasharray="3 2"
+                strokeOpacity={0.5}
+                vectorEffect="non-scaling-stroke"
+              />
+              <text
+                x={x}
+                y={7}
+                textAnchor="middle"
+                fontSize={6}
+                fill="#ef4444"
+                fillOpacity={0.7}
+                fontWeight={600}
+              >
+                {evt.label}
+              </text>
+            </g>
+          );
+        })}
+
+        {/* X-axis tick marks (#10) */}
+        {ticks.map((g) => {
+          const x = pad + (g / Math.max(maxGen, 1)) * (w - 2 * pad);
+          return (
+            <line
+              key={`tick-${g}`}
+              x1={x}
+              y1={h - 1}
+              x2={x}
+              y2={h + 2}
+              stroke="#9ca3af"
+              strokeWidth={0.5}
+              vectorEffect="non-scaling-stroke"
+            />
+          );
+        })}
+
         {/* Area */}
         <path d={areaPath} fill={`url(#${gradientId})`} />
 
@@ -168,9 +239,15 @@ function MiniChart({
         )}
       </svg>
 
-      <div className="flex justify-between px-4 pb-2 text-[9px] text-gray-300">
-        <span>Gen 0</span>
-        <span>Gen {maxGen}</span>
+      {/* X-axis labels with tick marks (#10) */}
+      <div className="flex justify-between px-4 pb-2 text-[11px] text-gray-500 dark:text-gray-400">
+        {ticks.filter((_, i, arr) => {
+          // On small charts, only show first, middle, last
+          if (arr.length <= 3) return true;
+          return i === 0 || i === arr.length - 1 || i === Math.floor(arr.length / 2);
+        }).map((g) => (
+          <span key={g}>{g}</span>
+        ))}
       </div>
     </motion.div>
   );

@@ -23,6 +23,9 @@ import ExplanationPanel from './components/education/ExplanationPanel';
 import WhatIfPanel from './components/simulation/WhatIfPanel';
 import WelcomeScreen from './components/scenarios/WelcomeScreen';
 import TutorialViewer from './components/tutorial/TutorialViewer';
+import GlossaryPage from './components/education/GlossaryPage';
+import ClassroomPage from './components/education/ClassroomMode';
+import ComparisonMode from './components/simulation/ComparisonMode';
 import { useKeyboardShortcuts } from './hooks/useKeyboardShortcuts';
 import { usePageTitle } from './hooks/usePageTitle';
 import type { Chapter } from './types/tutorial';
@@ -164,6 +167,8 @@ function SimulationPage() {
 
   const generation = useSimulationStore((s) => s.generation);
   const status = useSimulationStore((s) => s.status);
+  const history = useSimulationStore((s) => s.history);
+  const [showComparison, setShowComparison] = useState(false);
 
   if (!currentScenario) return null;
 
@@ -208,6 +213,31 @@ function SimulationPage() {
           <div className="space-y-3">
             <ExplanationPanel />
             {generation > 0 && <WhatIfPanel />}
+            {/* Comparison mode (#29) */}
+            {hasStarted && (
+              showComparison ? (
+                <ComparisonMode
+                  currentHistory={history}
+                  scenarioName={currentScenario.id}
+                  traitName={currentScenario.traits[0]?.name ?? ''}
+                  traitDisplayName={currentScenario.traits[0]?.displayName ?? 'Trait'}
+                  onClose={() => setShowComparison(false)}
+                />
+              ) : (
+                <button
+                  onClick={() => setShowComparison(true)}
+                  className="card group flex w-full items-center gap-3 p-4 text-left transition-all hover:shadow-md hover:border-emerald-200"
+                >
+                  <span className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-xl bg-blue-50 dark:bg-blue-900/30 text-xl transition-transform group-hover:scale-110">
+                    📊
+                  </span>
+                  <div className="min-w-0 flex-1">
+                    <p className="text-[13px] font-bold text-gray-800 dark:text-gray-200">Compare Runs</p>
+                    <p className="text-xs text-gray-500 dark:text-gray-400">Save &amp; compare different simulation outcomes</p>
+                  </div>
+                </button>
+              )
+            )}
           </div>
         </div>
       </div>
@@ -247,12 +277,13 @@ function App() {
 
   return (
     <div className="flex h-screen flex-col overflow-hidden" style={{ background: 'var(--color-bg)' }}>
+      <a href="#main-content" className="skip-link">Skip to main content</a>
       <Header onMenuClick={() => setSidebarOpen(true)} />
 
       <div className="flex flex-1 overflow-hidden">
         <Sidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
 
-        <main className="flex-1 overflow-y-auto">
+        <main id="main-content" className="flex-1 overflow-y-auto">
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/demo" element={
@@ -285,6 +316,8 @@ function App() {
                 <NarrativeFinchSimulation />
               </StoryPage>
             } />
+            <Route path="/glossary" element={<GlossaryPage />} />
+            <Route path="/classroom" element={<ClassroomPage />} />
             <Route path="/tutorial/:chapterId" element={<TutorialPage />} />
             <Route path="/sim/:scenarioId" element={<SimulationPage />} />
             <Route path="*" element={<NotFoundPage />} />

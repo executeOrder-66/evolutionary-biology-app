@@ -41,7 +41,13 @@ interface SimulationStore {
   // What-If branching
   branches: BranchPoint[];
 
+  // Settings
+  autoPauseAtMilestones: boolean;
+  bookmarks: number[];
+
   // Actions
+  setAutoPauseAtMilestones: (value: boolean) => void;
+  toggleBookmark: (gen: number) => void;
   loadScenario: (scenario: Scenario) => void;
   play: () => void;
   pause: () => void;
@@ -150,6 +156,19 @@ export const useSimulationStore = create<SimulationStore>((set, get) => ({
   lineageTracker: null,
   lineageData: null,
   branches: [],
+  autoPauseAtMilestones: true,
+  bookmarks: [],
+
+  setAutoPauseAtMilestones: (value) => set({ autoPauseAtMilestones: value }),
+
+  toggleBookmark: (gen) => {
+    const { bookmarks } = get();
+    if (bookmarks.includes(gen)) {
+      set({ bookmarks: bookmarks.filter((b) => b !== gen) });
+    } else {
+      set({ bookmarks: [...bookmarks, gen].sort((a, b) => a - b) });
+    }
+  },
 
   loadScenario: (scenario) => {
     const { intervalId } = get();
@@ -210,6 +229,14 @@ export const useSimulationStore = create<SimulationStore>((set, get) => ({
       const { intervalId } = get();
       if (intervalId !== null) clearInterval(intervalId);
       set({ intervalId: null, status: 'completed' });
+    } else if (get().autoPauseAtMilestones && get().status === 'running') {
+      // Auto-pause at educational milestones (#22)
+      const isMilestone = scenario.educationalContent.steps.some(
+        (s) => s.triggerGeneration === gen
+      );
+      if (isMilestone) {
+        get().pause();
+      }
     }
   },
 

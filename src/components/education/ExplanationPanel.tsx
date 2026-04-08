@@ -67,7 +67,7 @@ export default function ExplanationPanel() {
               {displayStep?.title ?? 'Background'}
             </h3>
             {totalSteps > 0 && displayIndex >= 0 && (
-              <span className="flex h-5 min-w-[20px] items-center justify-center rounded-full bg-emerald-100 dark:bg-emerald-900/50 px-1.5 text-[10px] font-bold text-emerald-700 dark:text-emerald-300">
+              <span className="flex h-5 min-w-[20px] items-center justify-center rounded-full bg-emerald-100 dark:bg-emerald-900/50 px-1.5 text-[11px] font-bold text-emerald-700 dark:text-emerald-300">
                 {displayIndex + 1}/{totalSteps}
               </span>
             )}
@@ -78,7 +78,7 @@ export default function ExplanationPanel() {
 
           {/* Viewing a different step than current */}
           {isViewingPast && (
-            <p className="mt-2 text-[10px] italic text-gray-300">
+            <p className="mt-2 text-xs italic text-gray-500 dark:text-gray-400">
               Viewing milestone {displayIndex + 1} (simulation is at gen{' '}
               {generation})
             </p>
@@ -90,7 +90,7 @@ export default function ExplanationPanel() {
               <button
                 onClick={() => goTo(Math.max(0, displayIndex - 1))}
                 disabled={!canGoPrev}
-                className="flex items-center gap-1 rounded-lg px-2.5 py-1 text-[11px] font-medium text-gray-500 transition-colors hover:bg-gray-50 hover:text-gray-700 disabled:opacity-25 disabled:hover:bg-transparent"
+                className="flex items-center gap-1 rounded-lg px-2.5 py-1 text-xs font-medium text-gray-600 dark:text-gray-300 transition-colors hover:bg-gray-50 dark:hover:bg-gray-800 hover:text-gray-700 disabled:opacity-25 disabled:hover:bg-transparent"
               >
                 <svg
                   className="h-3 w-3"
@@ -111,7 +111,7 @@ export default function ExplanationPanel() {
               {isViewingPast && (
                 <button
                   onClick={() => setBrowsed(null)}
-                  className="rounded-lg px-2.5 py-1 text-[11px] font-medium text-emerald-600 transition-colors hover:bg-emerald-50"
+                  className="rounded-lg px-2.5 py-1 text-xs font-medium text-emerald-600 dark:text-emerald-400 transition-colors hover:bg-emerald-50 dark:hover:bg-emerald-900/30"
                 >
                   Back to current
                 </button>
@@ -122,7 +122,7 @@ export default function ExplanationPanel() {
                   goTo(Math.min(totalSteps - 1, displayIndex + 1))
                 }
                 disabled={!canGoNext}
-                className="flex items-center gap-1 rounded-lg px-2.5 py-1 text-[11px] font-medium text-gray-500 transition-colors hover:bg-gray-50 hover:text-gray-700 disabled:opacity-25 disabled:hover:bg-transparent"
+                className="flex items-center gap-1 rounded-lg px-2.5 py-1 text-xs font-medium text-gray-600 dark:text-gray-300 transition-colors hover:bg-gray-50 dark:hover:bg-gray-800 hover:text-gray-700 disabled:opacity-25 disabled:hover:bg-transparent"
               >
                 Next
                 <svg
@@ -173,7 +173,7 @@ export default function ExplanationPanel() {
                 key={i}
                 className="flex gap-2.5 text-[13px] leading-snug text-emerald-800 dark:text-emerald-200"
               >
-                <span className="mt-1 flex h-4 w-4 flex-shrink-0 items-center justify-center rounded-full bg-emerald-200/60 dark:bg-emerald-900/40 text-[9px] font-bold text-emerald-700 dark:text-emerald-400">
+                <span className="mt-1 flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full bg-emerald-200/60 dark:bg-emerald-900/40 text-[11px] font-bold text-emerald-700 dark:text-emerald-400">
                   {i + 1}
                 </span>
                 {obj}
@@ -200,9 +200,9 @@ export default function ExplanationPanel() {
                 <button
                   key={i}
                   onClick={() => goTo(i)}
-                  className="relative flex w-full gap-3 py-1.5 text-left"
+                  className="relative flex w-full gap-3 py-2 text-left min-h-[44px] items-start"
                 >
-                  {/* Dot */}
+                  {/* Dot — visual size 15px, touch target 44px via padding */}
                   <div
                     className={`relative z-10 mt-0.5 flex h-[15px] w-[15px] flex-shrink-0 items-center justify-center rounded-full border-2 transition-all duration-300 ${
                       isCurrent
@@ -240,7 +240,7 @@ export default function ExplanationPanel() {
                     >
                       {step.title}
                     </p>
-                    <p className="text-[10px] text-gray-300">
+                    <p className="text-[11px] text-gray-500 dark:text-gray-400">
                       Gen {step.triggerGeneration}
                     </p>
                   </div>
@@ -283,7 +283,7 @@ export default function ExplanationPanel() {
             <p className="text-[13px] font-bold text-gray-800 dark:text-gray-200">
               {SCENARIO_LINKS[scenario.id].storyLabel}
             </p>
-            <p className="text-[11px] text-gray-400">
+            <p className="text-xs text-gray-500 dark:text-gray-400">
               Step-by-step visual walkthrough
             </p>
           </div>
@@ -316,7 +316,7 @@ export default function ExplanationPanel() {
             <p className="text-[13px] font-bold text-gray-800 dark:text-gray-200">
               Full Tutorial
             </p>
-            <p className="text-[11px] text-gray-400">
+            <p className="text-xs text-gray-500 dark:text-gray-400">
               Lessons explaining the science behind this simulation
             </p>
           </div>

@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import { scenarios } from '../../data/scenarios';
@@ -44,8 +45,51 @@ const item = {
 export default function WelcomeScreen() {
   const navigate = useNavigate();
   const completedStories = useProgressStore((s) => s.completedStories);
+  const [showOnboarding, setShowOnboarding] = useState(() => {
+    return !localStorage.getItem('evosim-onboarding-dismissed');
+  });
+
+  const dismissOnboarding = () => {
+    localStorage.setItem('evosim-onboarding-dismissed', 'true');
+    setShowOnboarding(false);
+  };
+
   return (
     <div className="min-h-full">
+      {/* First-time onboarding banner (#14) */}
+      {showOnboarding && (
+        <motion.div
+          initial={{ opacity: 0, y: -10 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="mx-auto max-w-6xl px-4 pt-4 sm:px-6"
+        >
+          <div className="flex items-center justify-between gap-4 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-500 px-5 py-3 text-white shadow-md">
+            <div className="flex items-center gap-3">
+              <span className="text-2xl">👋</span>
+              <div>
+                <p className="text-sm font-bold">New here? Start with the Quick Demo!</p>
+                <p className="text-xs text-emerald-100">See natural selection happen in 60 seconds — no biology background needed.</p>
+              </div>
+            </div>
+            <div className="flex items-center gap-2">
+              <button
+                onClick={() => { dismissOnboarding(); navigate('/demo'); }}
+                className="rounded-lg bg-white px-4 py-1.5 text-xs font-bold text-emerald-700 shadow-sm hover:bg-emerald-50 transition-colors"
+              >
+                Start Demo →
+              </button>
+              <button
+                onClick={dismissOnboarding}
+                className="rounded-lg px-2 py-1.5 text-xs font-medium text-emerald-100 hover:text-white hover:bg-white/10 transition-colors"
+                aria-label="Dismiss"
+              >
+                ✕
+              </button>
+            </div>
+          </div>
+        </motion.div>
+      )}
+
       {/* Hero section */}
       <div className="relative overflow-hidden bg-gradient-to-br from-emerald-900 via-emerald-800 to-teal-700 px-6 py-16 sm:py-24">
         <div className="absolute -right-20 -top-20 h-72 w-72 rounded-full bg-emerald-600/30 blur-3xl" />

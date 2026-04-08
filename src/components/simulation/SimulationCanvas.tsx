@@ -3,15 +3,24 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useSimulationStore } from '../../store/simulationStore';
 import LineageTreeView from './LineageTreeView';
 import SurvivalRace from './SurvivalRace';
+import DataTableView from './DataTableView';
 
-type ViewMode = 'lineage' | 'histogram' | 'individuals';
+type ViewMode = 'lineage' | 'histogram' | 'individuals' | 'table';
 
 export default function SimulationCanvas() {
   const population = useSimulationStore((s) => s.population);
   const scenario = useSimulationStore((s) => s.scenario);
   const environment = useSimulationStore((s) => s.environment);
   const generation = useSimulationStore((s) => s.generation);
-  const [viewMode, setViewMode] = useState<ViewMode>('lineage');
+  const [viewMode, setViewMode] = useState<ViewMode>(() => {
+    const stored = localStorage.getItem(`evosim-view-${scenario?.id}`);
+    return (stored as ViewMode) || 'lineage';
+  });
+
+  const handleSetViewMode = (mode: ViewMode) => {
+    setViewMode(mode);
+    if (scenario) localStorage.setItem(`evosim-view-${scenario.id}`, mode);
+  };
 
   const traitName = scenario?.traits[0]?.name ?? '';
   const traitDisplayName = scenario?.traits[0]?.displayName ?? 'Trait';
@@ -43,15 +52,26 @@ export default function SimulationCanvas() {
 
   if (!population) {
     return (
-      <div className="card flex h-80 flex-col items-center justify-center gap-3 p-8">
-        <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-gray-50">
-          <svg className="h-8 w-8 text-gray-300" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" d="M9.75 3.104v5.714a2.25 2.25 0 01-.659 1.591L5 14.5M9.75 3.104c-.251.023-.501.05-.75.082m.75-.082a24.301 24.301 0 014.5 0m0 0v5.714c0 .597.237 1.17.659 1.591L19.8 15.3M14.25 3.104c.251.023.501.05.75.082M19.8 15.3l-1.57.393A9.065 9.065 0 0112 15a9.065 9.065 0 00-6.23.693L5 14.5m14.8.8l1.402 1.402c1.232 1.232.65 3.318-1.067 3.611A48.309 48.309 0 0112 21c-2.773 0-5.491-.235-8.135-.687-1.718-.293-2.3-2.379-1.067-3.61L5 14.5" />
-          </svg>
+      <div className="card overflow-hidden">
+        {/* Skeleton loading (#24) */}
+        <div className="border-b border-gray-50 dark:border-gray-700 bg-gray-50/50 dark:bg-gray-800/50 px-5 py-2.5">
+          <div className="flex items-center gap-4">
+            <div className="h-4 w-20 rounded bg-gray-200 dark:bg-gray-700 animate-pulse" />
+            <div className="h-4 w-16 rounded bg-gray-200 dark:bg-gray-700 animate-pulse" />
+            <div className="h-4 w-24 rounded bg-gray-200 dark:bg-gray-700 animate-pulse" />
+            <div className="ml-auto h-6 w-32 rounded-lg bg-gray-200 dark:bg-gray-700 animate-pulse" />
+          </div>
         </div>
-        <p className="text-sm font-medium text-gray-400">
-          Select a scenario to begin exploring
-        </p>
+        <div className="flex h-64 flex-col items-center justify-center gap-3 p-8">
+          <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-gray-50 dark:bg-gray-800">
+            <svg className="h-8 w-8 text-gray-300 dark:text-gray-600" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M9.75 3.104v5.714a2.25 2.25 0 01-.659 1.591L5 14.5M9.75 3.104c-.251.023-.501.05-.75.082m.75-.082a24.301 24.301 0 014.5 0m0 0v5.714c0 .597.237 1.17.659 1.591L19.8 15.3M14.25 3.104c.251.023.501.05.75.082M19.8 15.3l-1.57.393A9.065 9.065 0 0112 15a9.065 9.065 0 00-6.23.693L5 14.5m14.8.8l1.402 1.402c1.232 1.232.65 3.318-1.067 3.611A48.309 48.309 0 0112 21c-2.773 0-5.491-.235-8.135-.687-1.718-.293-2.3-2.379-1.067-3.61L5 14.5" />
+            </svg>
+          </div>
+          <p className="text-sm font-medium text-gray-500 dark:text-gray-400">
+            Select a scenario to begin exploring
+          </p>
+        </div>
       </div>
     );
   }
@@ -86,7 +106,7 @@ export default function SimulationCanvas() {
       </AnimatePresence>
 
       {/* Compact status bar */}
-      <div className="border-b border-gray-50 bg-gray-50/50 px-5 py-2.5">
+      <div className="border-b border-gray-50 dark:border-gray-700 bg-gray-50/50 dark:bg-gray-800/50 px-5 py-2.5">
         <div className="flex flex-wrap items-center gap-x-5 gap-y-2">
           <StatPill label="Generation" value={generation} />
           <StatPill label="Population" value={population.size} />
@@ -121,15 +141,15 @@ export default function SimulationCanvas() {
             </AnimatePresence>
 
             {/* View toggle */}
-            <div className="flex rounded-lg bg-gray-100 p-0.5">
-              {(['lineage', 'histogram', 'individuals'] as const).map((mode) => (
+            <div className="flex rounded-lg bg-gray-100 dark:bg-gray-800 p-0.5">
+              {(['lineage', 'histogram', 'individuals', 'table'] as const).map((mode) => (
                 <button
                   key={mode}
-                  onClick={() => setViewMode(mode)}
-                  className={`rounded-md px-2.5 py-1 text-[11px] font-medium capitalize transition-all ${
+                  onClick={() => handleSetViewMode(mode)}
+                  className={`rounded-md px-2.5 py-1 text-xs font-medium capitalize transition-all ${
                     viewMode === mode
-                      ? 'bg-white text-gray-800 shadow-sm'
-                      : 'text-gray-400 hover:text-gray-600'
+                      ? 'bg-white dark:bg-gray-700 text-gray-800 dark:text-gray-200 shadow-sm'
+                      : 'text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200'
                   }`}
                 >
                   {mode === 'lineage' ? 'families' : mode}
@@ -199,7 +219,7 @@ export default function SimulationCanvas() {
                 ))}
               </div>
               <div className="mt-2 flex items-center justify-between">
-                <span className="text-[10px] font-medium text-gray-300">
+                <span className="text-[11px] font-medium text-gray-500 dark:text-gray-400">
                   Low resistance
                 </span>
                 <div
@@ -208,10 +228,20 @@ export default function SimulationCanvas() {
                     background: traitGradient(scenario?.id),
                   }}
                 />
-                <span className="text-[10px] font-medium text-gray-300">
+                <span className="text-[11px] font-medium text-gray-500 dark:text-gray-400">
                   High resistance
                 </span>
               </div>
+            </motion.div>
+          ) : viewMode === 'table' ? (
+            <motion.div
+              key="table"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.2 }}
+            >
+              <DataTableView />
             </motion.div>
           ) : (
             <motion.div
@@ -248,7 +278,7 @@ export default function SimulationCanvas() {
                   </motion.div>
                 ))}
                 {population.size > 300 && (
-                  <span className="self-center pl-2 text-[11px] text-gray-300">
+                  <span className="self-center pl-2 text-xs text-gray-500 dark:text-gray-400">
                     +{population.size - 300} more
                   </span>
                 )}
@@ -274,10 +304,10 @@ function StatPill({
 }) {
   return (
     <div className="group relative flex items-baseline gap-1.5">
-      <span className="text-[11px] text-gray-400">{label}</span>
+      <span className="text-xs text-gray-500 dark:text-gray-400">{label}</span>
       <span
         className={`text-sm font-bold tabular-nums ${
-          accent ? 'text-emerald-600' : 'text-gray-800'
+          accent ? 'text-emerald-600 dark:text-emerald-400' : 'text-gray-800 dark:text-gray-200'
         }`}
       >
         {value}

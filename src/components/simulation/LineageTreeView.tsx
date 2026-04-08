@@ -1,7 +1,20 @@
-import { useMemo, useRef, useEffect, useState } from 'react';
+import { useMemo, useRef, useEffect, useState, useCallback } from 'react';
 import { motion } from 'framer-motion';
 import { useSimulationStore } from '../../store/simulationStore';
 import type { LineageTree } from '../../types';
+
+/** Hook to detect if user is on a small screen */
+function useIsMobile(breakpoint = 640) {
+  const [isMobile, setIsMobile] = useState(
+    typeof window !== 'undefined' ? window.innerWidth < breakpoint : false
+  );
+  useEffect(() => {
+    const handler = () => setIsMobile(window.innerWidth < breakpoint);
+    window.addEventListener('resize', handler);
+    return () => window.removeEventListener('resize', handler);
+  }, [breakpoint]);
+  return isMobile;
+}
 
 const ROW_HEIGHT = 48;
 const NODE_RADIUS_MIN = 4;
@@ -40,8 +53,25 @@ export default function LineageTreeView() {
   const scrollRef = useRef<HTMLDivElement>(null);
   const [hoveredTree, setHoveredTree] = useState<string | null>(null);
   const [hoveredNode, setHoveredNode] = useState<LayoutNode | null>(null);
+  const [selectedNode, setSelectedNode] = useState<LayoutNode | null>(null);
+  const [hasOverflow, setHasOverflow] = useState(false);
+  const [zoomLevel, setZoomLevel] = useState(1);
+  const isMobile = useIsMobile();
 
   const traitName = scenario?.traits[0]?.name ?? '';
+
+  // Detect horizontal overflow for scroll hint
+  const checkOverflow = useCallback(() => {
+    if (scrollRef.current) {
+      setHasOverflow(scrollRef.current.scrollWidth > scrollRef.current.clientWidth);
+    }
+  }, []);
+
+  useEffect(() => {
+    checkOverflow();
+    window.addEventListener('resize', checkOverflow);
+    return () => window.removeEventListener('resize', checkOverflow);
+  }, [checkOverflow, generation]);
 
   // Compute layout for all trees
   const { nodes, edges, svgWidth, svgHeight, laneWidth } = useMemo(() => {
@@ -98,6 +128,56 @@ export default function LineageTreeView() {
     );
   }
 
+  // Mobile: simplified family summary view
+  if (isMobile && lineageData) {
+    return (
+      <div className="space-y-3">
+        <h4 className="text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400">
+          Family Trees — Generation {generation}
+        </h4>
+        {lineageData.trees.map((tree) => {
+          const bucket = tree.generationBuckets.get(lineageData.maxGeneration);
+          const count = bucket?.length ?? 0;
+          const isExtinct = tree.extinctAtGeneration !== null;
+          let avgTrait = tree.initialTrait;
+          if (bucket && bucket.length > 0) {
+            let sum = 0;
+            for (const id of bucket) {
+              const node = tree.nodes.get(id);
+              if (node) sum += node.traits[traitName] ?? 0;
+            }
+            avgTrait = sum / bucket.length;
+          }
+          return (
+            <div
+              key={tree.ancestorId}
+              className={`rounded-xl border p-3 transition-opacity ${isExtinct ? 'opacity-50' : ''}`}
+              style={{ borderColor: tree.color + '40', backgroundColor: tree.color + '08' }}
+              onClick={() => setSelectedNode(null)}
+            >
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-2">
+                  <span className="h-3 w-3 rounded-full" style={{ backgroundColor: tree.color }} />
+                  <span className="text-sm font-bold" style={{ color: tree.color }}>{tree.label}</span>
+                </div>
+                {isExtinct ? (
+                  <span className="rounded bg-red-100 dark:bg-red-900/30 px-2 py-0.5 text-[11px] font-bold text-red-500">
+                    EXTINCT gen {tree.extinctAtGeneration}
+                  </span>
+                ) : (
+                  <span className="text-sm font-bold" style={{ color: tree.color }}>{count} alive</span>
+                )}
+              </div>
+              <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">
+                {tree.description} · {Math.round(avgTrait * 100)}% resistant
+              </p>
+            </div>
+          );
+        })}
+      </div>
+    );
+  }
+
   return (
     <div className="space-y-2">
       {/* Family legend */}
@@ -125,11 +205,11 @@ export default function LineageTreeView() {
               style={{ backgroundColor: tree.color }}
             />
             {tree.label}
-            <span className="text-[10px] opacity-60">
+            <span className="text-[11px] opacity-60">
               — {tree.description}
             </span>
             {tree.extinctAtGeneration !== null && (
-              <span className="ml-1 rounded bg-gray-200 px-1 py-0.5 text-[8px] font-bold text-gray-500">
+              <span className="ml-1 rounded bg-gray-200 dark:bg-gray-700 px-1.5 py-0.5 text-[11px] font-bold text-gray-600 dark:text-gray-300">
                 EXTINCT
               </span>
             )}
@@ -137,18 +217,58 @@ export default function LineageTreeView() {
         ))}
       </div>
 
+      {/* Zoom controls */}
+      <div className="flex items-center gap-2 px-1">
+        <button
+          onClick={() => setZoomLevel((z) => Math.max(0.5, z - 0.25))}
+          className="flex h-7 w-7 items-center justify-center rounded-lg bg-gray-100 dark:bg-gray-800 text-gray-500 dark:text-gray-400 text-sm font-bold hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
+          aria-label="Zoom out"
+        >
+          −
+        </button>
+        <span className="text-xs text-gray-500 dark:text-gray-400 tabular-nums w-10 text-center">
+          {Math.round(zoomLevel * 100)}%
+        </span>
+        <button
+          onClick={() => setZoomLevel((z) => Math.min(3, z + 0.25))}
+          className="flex h-7 w-7 items-center justify-center rounded-lg bg-gray-100 dark:bg-gray-800 text-gray-500 dark:text-gray-400 text-sm font-bold hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
+          aria-label="Zoom in"
+        >
+          +
+        </button>
+        {zoomLevel !== 1 && (
+          <button
+            onClick={() => setZoomLevel(1)}
+            className="text-xs text-emerald-600 dark:text-emerald-400 font-medium hover:underline"
+          >
+            Reset
+          </button>
+        )}
+      </div>
+
       {/* SVG tree area */}
       <div
         ref={scrollRef}
-        className="overflow-auto rounded-xl bg-gray-50/80 border border-gray-100"
+        className={`overflow-auto rounded-xl bg-gray-50/80 dark:bg-gray-800/50 border border-gray-100 dark:border-gray-700 scroll-hint-right ${hasOverflow ? 'has-overflow' : ''}`}
         style={{ maxHeight: 380 }}
+        onWheel={(e) => {
+          if (e.ctrlKey || e.metaKey) {
+            e.preventDefault();
+            setZoomLevel((z) => Math.min(3, Math.max(0.5, z - e.deltaY * 0.002)));
+          }
+        }}
+        onScroll={() => {
+          if (scrollRef.current) {
+            const el = scrollRef.current;
+            setHasOverflow(el.scrollLeft + el.clientWidth < el.scrollWidth - 10);
+          }
+        }}
       >
         <svg
-          width={svgWidth}
-          height={svgHeight}
+          width={svgWidth * zoomLevel}
+          height={svgHeight * zoomLevel}
           viewBox={`0 0 ${svgWidth} ${svgHeight}`}
-          className="w-full"
-          style={{ minHeight: Math.min(svgHeight, 380) }}
+          style={{ minHeight: Math.min(svgHeight * zoomLevel, 380) }}
         >
           {/* Generation labels */}
           {Array.from({ length: (lineageData.maxGeneration ?? 0) + 1 }, (_, g) => (
@@ -156,8 +276,8 @@ export default function LineageTreeView() {
               key={g}
               x={8}
               y={g * ROW_HEIGHT + 28}
-              className="fill-gray-300"
-              fontSize={9}
+              className="fill-gray-500 dark:fill-gray-400"
+              fontSize={11}
               fontWeight={500}
             >
               {g}
@@ -196,7 +316,7 @@ export default function LineageTreeView() {
                 x={svgWidth - 6}
                 y={10 * ROW_HEIGHT + 14}
                 textAnchor="end"
-                fontSize={9}
+                fontSize={11}
                 fontWeight={600}
                 fill="#ef4444"
                 fillOpacity={0.6}
@@ -234,6 +354,7 @@ export default function LineageTreeView() {
               transition={{ duration: 0.3 }}
               onMouseEnter={() => setHoveredNode(n)}
               onMouseLeave={() => setHoveredNode(null)}
+              onClick={() => setSelectedNode(selectedNode?.id === n.id ? null : n)}
               style={{ cursor: 'pointer' }}
             />
           ))}
@@ -260,8 +381,8 @@ export default function LineageTreeView() {
             ))}
         </svg>
 
-        {/* Tooltip overlay */}
-        {hoveredNode && (
+        {/* Tooltip overlay (hover on desktop, tap on mobile) */}
+        {(hoveredNode || selectedNode) && (
           <div
             className="chart-tooltip z-50"
             style={{
@@ -271,15 +392,17 @@ export default function LineageTreeView() {
               position: 'absolute',
             }}
           >
-            <strong>{hoveredNode.treeName}</strong> family &middot; Gen{' '}
-            {hoveredNode.generation}
+            {(() => { const n = hoveredNode || selectedNode; if (!n) return null; return (<>
+            <strong>{n.treeName}</strong> family &middot; Gen{' '}
+            {n.generation}
             <br />
-            Resistance: {Math.round(hoveredNode.traitValue * 100)}% &middot;
-            Survival chance: {Math.round(hoveredNode.fitness * 100)}%
-            {hoveredNode.isAncestor && ' (Original ancestor)'}
-            {!hoveredNode.alive && hoveredNode.childCount === 0
+            Resistance: {Math.round(n.traitValue * 100)}% &middot;
+            Survival chance: {Math.round(n.fitness * 100)}%
+            {n.isAncestor && ' (Original ancestor)'}
+            {!n.alive && n.childCount === 0
               ? ' · Died without children'
-              : ` · ${hoveredNode.childCount} children`}
+              : ` · ${n.childCount} children`}
+            </>); })()}
           </div>
         )}
       </div>

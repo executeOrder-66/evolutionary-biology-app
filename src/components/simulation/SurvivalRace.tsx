@@ -20,7 +20,7 @@ export default function SurvivalRace() {
 
   return (
     <div className="space-y-2">
-      <h4 className="text-[11px] font-semibold uppercase tracking-wider text-gray-400">
+      <h4 className="text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400">
         Family Survival — Generation {generation}
       </h4>
 
@@ -63,19 +63,19 @@ export default function SurvivalRace() {
                 />
                 <span
                   className={`text-[13px] font-bold truncate ${
-                    isExtinct ? 'text-gray-400 line-through' : 'text-gray-700'
+                    isExtinct ? 'text-gray-400 line-through' : 'text-gray-700 dark:text-gray-200'
                   }`}
                 >
                   {tree.label}
                 </span>
               </div>
-              <span className="pl-5 text-[10px] text-gray-400">
+              <span className="pl-5 text-[11px] text-gray-500 dark:text-gray-400">
                 {tree.description}
               </span>
             </div>
 
             {/* Bar */}
-            <div className="flex-1 h-6 rounded-full bg-gray-100 overflow-hidden relative">
+            <div className="flex-1 h-6 rounded-full bg-gray-100 dark:bg-gray-800 overflow-hidden relative">
               <motion.div
                 className="h-full rounded-full"
                 style={{ backgroundColor: isExtinct ? '#d1d5db' : tree.color }}

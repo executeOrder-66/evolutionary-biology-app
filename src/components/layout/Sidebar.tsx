@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import { scenarios } from '../../data/scenarios';
@@ -23,12 +24,38 @@ interface SidebarProps {
   onClose: () => void;
 }
 
+const DIFFICULTY_DOTS: Record<string, number> = {
+  beginner: 1,
+  intermediate: 2,
+  advanced: 3,
+};
+
+/** Scenarios that have guided story routes */
+const STORY_SCENARIOS = new Set([
+  'antibiotic-resistance',
+  'peppered-moths',
+  'peacock-tails',
+  'dog-domestication',
+  'darwins-finches',
+]);
+
 export default function Sidebar({ isOpen, onClose }: SidebarProps) {
   const navigate = useNavigate();
   const activeScenario = useSimulationStore((s) => s.scenario);
   const pause = useSimulationStore((s) => s.pause);
+  const [searchQuery, setSearchQuery] = useState('');
 
-  const grouped = scenarios.reduce<Record<string, Scenario[]>>((acc, s) => {
+  const filteredScenarios = scenarios.filter((s) => {
+    if (!searchQuery.trim()) return true;
+    const q = searchQuery.toLowerCase();
+    return (
+      s.name.toLowerCase().includes(q) ||
+      s.category.toLowerCase().includes(q) ||
+      s.difficulty.toLowerCase().includes(q)
+    );
+  });
+
+  const grouped = filteredScenarios.reduce<Record<string, Scenario[]>>((acc, s) => {
     (acc[s.category] ??= []).push(s);
     return acc;
   }, {});
@@ -56,6 +83,22 @@ export default function Sidebar({ isOpen, onClose }: SidebarProps) {
             <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
           </svg>
         </button>
+      </div>
+
+      {/* Search (#15) */}
+      <div className="px-3 py-2">
+        <div className="relative">
+          <svg className="absolute left-2.5 top-1/2 h-3.5 w-3.5 -translate-y-1/2 text-gray-400" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
+          </svg>
+          <input
+            type="text"
+            placeholder="Search scenarios..."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            className="w-full rounded-lg border border-gray-200 dark:border-gray-600 bg-gray-50 dark:bg-gray-800 py-1.5 pl-8 pr-3 text-xs text-gray-700 dark:text-gray-200 placeholder-gray-400 dark:placeholder-gray-500 outline-none focus:border-emerald-400 focus:ring-1 focus:ring-emerald-400"
+          />
+        </div>
       </div>
 
       {/* Scenario list */}
@@ -99,9 +142,32 @@ export default function Sidebar({ isOpen, onClose }: SidebarProps) {
                       >
                         {scenario.name}
                       </p>
-                      <p className="truncate text-[11px] text-gray-400 dark:text-gray-500">
-                        {scenario.difficulty} &middot; {scenario.parameters.maxGenerations} gens
-                      </p>
+                      <div className="flex items-center gap-1.5 text-[11px] text-gray-400 dark:text-gray-500">
+                        {/* Difficulty dots (#16) */}
+                        <span className="flex items-center gap-0.5" title={scenario.difficulty}>
+                          {Array.from({ length: 3 }, (_, i) => (
+                            <span
+                              key={i}
+                              className={`inline-block h-1.5 w-1.5 rounded-full ${
+                                i < (DIFFICULTY_DOTS[scenario.difficulty] ?? 1)
+                                  ? scenario.difficulty === 'advanced'
+                                    ? 'bg-red-400'
+                                    : scenario.difficulty === 'intermediate'
+                                      ? 'bg-amber-400'
+                                      : 'bg-emerald-400'
+                                  : 'bg-gray-200 dark:bg-gray-600'
+                              }`}
+                            />
+                          ))}
+                        </span>
+                        <span className="truncate">{scenario.parameters.maxGenerations} gens</span>
+                        {/* Story badge (#17) */}
+                        {STORY_SCENARIOS.has(scenario.id) && (
+                          <span className="ml-auto flex-shrink-0 rounded bg-amber-100 dark:bg-amber-900/40 px-1 py-0.5 text-[9px] font-bold text-amber-600 dark:text-amber-300" title="Has guided story">
+                            📖
+                          </span>
+                        )}
+                      </div>
                     </div>
                     {isActive && (
                       <div className="h-1.5 w-1.5 flex-shrink-0 rounded-full bg-emerald-500" />
@@ -115,8 +181,20 @@ export default function Sidebar({ isOpen, onClose }: SidebarProps) {
       </nav>
 
       {/* Footer */}
-      <div className="border-t border-gray-100 dark:border-gray-700 px-5 py-3">
-        <p className="text-center text-[10px] text-gray-300 dark:text-gray-600">
+      <div className="border-t border-gray-100 dark:border-gray-700 px-5 py-3 space-y-2">
+        <button
+          onClick={() => { navigate('/glossary'); onClose(); }}
+          className="flex w-full items-center gap-2 rounded-lg px-2 py-1.5 text-xs font-medium text-gray-500 dark:text-gray-400 transition-colors hover:bg-gray-50 dark:hover:bg-gray-800 hover:text-gray-700 dark:hover:text-gray-200"
+        >
+          <span>📖</span> Glossary
+        </button>
+        <button
+          onClick={() => { navigate('/classroom'); onClose(); }}
+          className="flex w-full items-center gap-2 rounded-lg px-2 py-1.5 text-xs font-medium text-gray-500 dark:text-gray-400 transition-colors hover:bg-gray-50 dark:hover:bg-gray-800 hover:text-gray-700 dark:hover:text-gray-200"
+        >
+          <span>🎓</span> Classroom
+        </button>
+        <p className="text-center text-[11px] text-gray-500 dark:text-gray-400">
           {scenarios.length} simulations available
         </p>
       </div>

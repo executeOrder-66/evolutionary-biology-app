@@ -37,7 +37,7 @@ export default function Header({ onMenuClick }: HeaderProps) {
               <h1 className="text-[15px] font-bold tracking-tight text-gray-900 dark:text-gray-100">
                 {t('common.appName')}
               </h1>
-              <p className="text-[10px] font-medium uppercase tracking-widest text-gray-400 dark:text-gray-500">
+              <p className="text-[11px] font-medium uppercase tracking-widest text-gray-500 dark:text-gray-400">
                 Evolution Lab
               </p>
             </div>
@@ -59,7 +59,7 @@ export default function Header({ onMenuClick }: HeaderProps) {
                 <p className="text-xs font-semibold text-gray-800 leading-tight dark:text-gray-200">
                   {scenario.name}
                 </p>
-                <p className="text-[10px] text-gray-400 dark:text-gray-500">
+                <p className="text-[11px] text-gray-500 dark:text-gray-400">
                   {scenario.category} selection
                 </p>
               </div>
@@ -73,19 +73,20 @@ export default function Header({ onMenuClick }: HeaderProps) {
           <LanguageSwitcher />
           {scenario && (
             <div className="flex items-center gap-2">
-              <div className="hidden items-center gap-1.5 sm:flex">
-                <div
-                  className={`h-2 w-2 rounded-full ${
-                    status === 'running'
-                      ? 'animate-pulse-soft bg-emerald-500'
-                      : status === 'paused'
-                        ? 'bg-amber-400'
-                        : status === 'completed'
-                          ? 'bg-blue-500'
-                          : 'bg-gray-300'
-                  }`}
-                />
-                <span className="text-xs font-medium capitalize text-gray-500 dark:text-gray-400">
+              <div className="flex items-center gap-1.5">
+                {/* Shape varies by status for colorblind accessibility */}
+                {status === 'running' ? (
+                  <div className="h-2.5 w-2.5 animate-pulse-soft rounded-full bg-emerald-500" aria-hidden="true" />
+                ) : status === 'paused' ? (
+                  <div className="h-2.5 w-2.5 rounded-sm bg-amber-400" aria-hidden="true" />
+                ) : status === 'completed' ? (
+                  <svg className="h-3 w-3 text-blue-500" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                    <path fillRule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clipRule="evenodd" />
+                  </svg>
+                ) : (
+                  <div className="h-2.5 w-2.5 rounded-full border-2 border-gray-300 dark:border-gray-500" aria-hidden="true" />
+                )}
+                <span className="text-xs font-medium capitalize text-gray-600 dark:text-gray-300">
                   {status}
                 </span>
               </div>

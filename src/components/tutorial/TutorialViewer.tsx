@@ -79,7 +79,7 @@ export default function TutorialViewer({ chapter, onClose }: TutorialViewerProps
               <h2 className="text-sm font-bold text-gray-900 dark:text-gray-100">
                 {chapter.icon} {chapter.title}
               </h2>
-              <p className="text-[11px] text-gray-400 dark:text-gray-500">
+              <p className="text-xs text-gray-500 dark:text-gray-400">
                 Lesson {lessonIdx + 1}/{chapter.lessons.length}: {lesson.title}
               </p>
             </div>
@@ -97,7 +97,7 @@ export default function TutorialViewer({ chapter, onClose }: TutorialViewerProps
               <button
                 key={l.id}
                 onClick={() => goToLesson(i)}
-                className={`flex-shrink-0 rounded-lg px-3 py-1.5 text-[11px] font-medium transition-all ${
+                className={`flex-shrink-0 rounded-lg px-3 py-1.5 text-xs font-medium transition-all ${
                   i === lessonIdx
                     ? 'bg-emerald-100 dark:bg-emerald-900/50 text-emerald-700 dark:text-emerald-300 shadow-sm'
                     : i < lessonIdx
@@ -147,7 +147,7 @@ export default function TutorialViewer({ chapter, onClose }: TutorialViewerProps
             {/* Key term callout */}
             {page.keyTerm && (
               <div className="mt-6 rounded-xl border border-emerald-100 dark:border-emerald-800/50 bg-emerald-50/60 dark:bg-emerald-900/20 px-5 py-4">
-                <p className="mb-1 text-[10px] font-bold uppercase tracking-wider text-emerald-600 dark:text-emerald-400">
+                <p className="mb-1 text-[11px] font-bold uppercase tracking-wider text-emerald-600 dark:text-emerald-400">
                   Key Term
                 </p>
                 <p className="text-sm font-bold text-emerald-800 dark:text-emerald-200">
@@ -246,7 +246,7 @@ function renderContent(text: string) {
         <ul key={i} className="space-y-2 pl-1">
           {lines.map((line, j) => (
             <li key={j} className="flex gap-2.5 text-[16px] leading-relaxed text-gray-600 dark:text-gray-300">
-              <span className="mt-1 flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full bg-emerald-100 dark:bg-emerald-900/40 text-[10px] font-bold text-emerald-600 dark:text-emerald-400">
+              <span className="mt-1 flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full bg-emerald-100 dark:bg-emerald-900/40 text-[11px] font-bold text-emerald-600 dark:text-emerald-400">
                 {/^\d+\./.test(line.trim())
                   ? line.trim().match(/^(\d+)/)?.[1]
                   : '•'}

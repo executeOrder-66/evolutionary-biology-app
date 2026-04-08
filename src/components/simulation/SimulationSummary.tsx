@@ -1,3 +1,4 @@
+import { useCallback } from 'react';
 import { motion } from 'framer-motion';
 import { useSimulationStore } from '../../store/simulationStore';
 
@@ -8,7 +9,28 @@ export default function SimulationSummary() {
   const scenario = useSimulationStore((s) => s.scenario);
   const reset = useSimulationStore((s) => s.reset);
 
+  const history = useSimulationStore((s) => s.history);
   const traitName = scenario?.traits[0]?.name ?? '';
+
+  // Export CSV (#27)
+  const exportCSV = useCallback(() => {
+    if (!history.length || !scenario) return;
+    const headers = ['Generation', 'Population', `Avg ${scenario.traits[0]?.displayName ?? 'Trait'}`, 'Avg Fitness'];
+    const rows = history.map((h) => [
+      h.generation,
+      h.populationSize,
+      (h.traitMeans[traitName] ?? 0).toFixed(4),
+      h.meanFitness.toFixed(4),
+    ]);
+    const csv = [headers.join(','), ...rows.map((r) => r.join(','))].join('\n');
+    const blob = new Blob([csv], { type: 'text/csv' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `${scenario.id}-simulation-data.csv`;
+    a.click();
+    URL.revokeObjectURL(url);
+  }, [history, scenario, traitName]);
 
   if (status !== 'completed' || !lineageData || !population) return null;
 
@@ -182,26 +204,72 @@ export default function SimulationSummary() {
           </p>
         </div>
 
-        {/* Try again */}
-        <button
-          onClick={reset}
-          className="flex w-full items-center justify-center gap-2 rounded-xl bg-emerald-500 px-4 py-3 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-emerald-600"
-        >
-          <svg
-            className="h-4 w-4"
-            fill="none"
-            viewBox="0 0 24 24"
-            strokeWidth={2}
-            stroke="currentColor"
+        {/* Action buttons */}
+        <div className="flex gap-2">
+          {/* Export CSV (#27) */}
+          <button
+            onClick={exportCSV}
+            className="flex flex-1 items-center justify-center gap-2 rounded-xl border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-800 px-4 py-2.5 text-sm font-medium text-gray-700 dark:text-gray-200 transition-colors hover:bg-gray-50 dark:hover:bg-gray-700"
           >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182M20.985 4.356v4.992"
-            />
-          </svg>
-          Run Again (different random seed)
-        </button>
+            <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3" />
+            </svg>
+            Export CSV
+          </button>
+
+          {/* Share URL (#28) */}
+          <button
+            onClick={() => {
+              const url = new URL(window.location.href);
+              url.searchParams.set('scenario', scenario?.id ?? '');
+              navigator.clipboard.writeText(url.toString());
+              alert('Simulation URL copied to clipboard!');
+            }}
+            className="flex flex-1 items-center justify-center gap-2 rounded-xl border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-800 px-4 py-2.5 text-sm font-medium text-gray-700 dark:text-gray-200 transition-colors hover:bg-gray-50 dark:hover:bg-gray-700"
+          >
+            <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M7.217 10.907a2.25 2.25 0 100 2.186m0-2.186c.18.324.283.696.283 1.093s-.103.77-.283 1.093m0-2.186l9.566-5.314m-9.566 7.5l9.566 5.314m0 0a2.25 2.25 0 103.935 2.186 2.25 2.25 0 00-3.935-2.186zm0-12.814a2.25 2.25 0 103.933-2.185 2.25 2.25 0 00-3.933 2.185z" />
+            </svg>
+            Share
+          </button>
+
+          {/* Print (#30) */}
+          <button
+            onClick={() => window.print()}
+            className="flex items-center justify-center gap-2 rounded-xl border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-800 px-3 py-2.5 text-sm font-medium text-gray-700 dark:text-gray-200 transition-colors hover:bg-gray-50 dark:hover:bg-gray-700"
+            title="Print summary"
+          >
+            <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M6.72 13.829c-.24.03-.48.062-.72.096m.72-.096a42.415 42.415 0 0110.56 0m-10.56 0L6.34 18m10.94-4.171c.24.03.48.062.72.096m-.72-.096L17.66 18m0 0l.229 2.523a1.125 1.125 0 01-1.12 1.227H7.231c-.662 0-1.18-.568-1.12-1.227L6.34 18m11.318 0h1.091A2.25 2.25 0 0021 15.75V9.456c0-1.081-.768-2.015-1.837-2.175a48.055 48.055 0 00-1.913-.247M6.34 18H5.25A2.25 2.25 0 013 15.75V9.456c0-1.081.768-2.015 1.837-2.175a48.041 48.041 0 011.913-.247m0 0a48.303 48.303 0 018.5 0m-8.5 0V6.923a2.25 2.25 0 01.65-1.591l.94-.94A2.25 2.25 0 018.931 4h6.138a2.25 2.25 0 011.591.659l.94.94a2.25 2.25 0 01.65 1.591v.407" />
+            </svg>
+          </button>
+        </div>
+
+        {/* Try again (#32) */}
+        <div className="space-y-2">
+          <button
+            onClick={reset}
+            className="flex w-full items-center justify-center gap-2 rounded-xl bg-emerald-500 px-4 py-3 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-emerald-600"
+          >
+            <svg
+              className="h-4 w-4"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth={2}
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182M20.985 4.356v4.992"
+              />
+            </svg>
+            Run Again (different random seed)
+          </button>
+          <p className="text-center text-xs text-gray-400 dark:text-gray-500">
+            Current results are preserved above. Running again will generate a new simulation.
+          </p>
+        </div>
       </div>
     </motion.div>
   );

@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useSimulationStore } from '../../store/simulationStore';
 
@@ -66,6 +66,8 @@ export default function WhatIfPanel() {
   const revertToBranch = useSimulationStore((s) => s.revertToBranch);
   const setEnvironmentFactor = useSimulationStore((s) => s.setEnvironmentFactor);
   const [expanded, setExpanded] = useState(true);
+  const [showRevertConfirm, setShowRevertConfirm] = useState(false);
+  const revertTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const config = scenario ? scenarioConfigs[scenario.id] : null;
 
@@ -201,12 +203,44 @@ export default function WhatIfPanel() {
                       </motion.span>
                     ))}
                   </div>
-                  <button
-                    onClick={revertToBranch}
-                    className="mt-2 w-full rounded-lg bg-red-50 px-3 py-1.5 text-xs font-medium text-red-600 transition-colors hover:bg-red-100"
-                  >
-                    Revert to Start
-                  </button>
+                  {showRevertConfirm ? (
+                    <div className="mt-2 rounded-lg border border-red-200 dark:border-red-800 bg-red-50 dark:bg-red-900/20 p-2.5">
+                      <p className="text-xs text-red-600 dark:text-red-400 mb-2">
+                        Reset simulation to gen 0? Branch history will be cleared.
+                      </p>
+                      <div className="flex gap-2">
+                        <button
+                          onClick={() => {
+                            revertToBranch();
+                            setShowRevertConfirm(false);
+                            if (revertTimerRef.current) clearTimeout(revertTimerRef.current);
+                          }}
+                          className="flex-1 rounded-lg bg-red-500 px-3 py-1.5 text-xs font-medium text-white transition-colors hover:bg-red-600"
+                        >
+                          Yes, Reset
+                        </button>
+                        <button
+                          onClick={() => {
+                            setShowRevertConfirm(false);
+                            if (revertTimerRef.current) clearTimeout(revertTimerRef.current);
+                          }}
+                          className="flex-1 rounded-lg bg-gray-100 dark:bg-gray-700 px-3 py-1.5 text-xs font-medium text-gray-600 dark:text-gray-300 transition-colors hover:bg-gray-200 dark:hover:bg-gray-600"
+                        >
+                          Cancel
+                        </button>
+                      </div>
+                    </div>
+                  ) : (
+                    <button
+                      onClick={() => {
+                        setShowRevertConfirm(true);
+                        revertTimerRef.current = setTimeout(() => setShowRevertConfirm(false), 5000);
+                      }}
+                      className="mt-2 w-full rounded-lg bg-red-50 dark:bg-red-900/20 px-3 py-1.5 text-xs font-medium text-red-600 dark:text-red-400 transition-colors hover:bg-red-100 dark:hover:bg-red-900/40"
+                    >
+                      Revert to Start
+                    </button>
+                  )}
                 </div>
               )}
             </motion.div>
