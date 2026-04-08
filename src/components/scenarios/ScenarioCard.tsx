@@ -3,10 +3,10 @@ import { useNavigate } from 'react-router-dom';
 import type { Scenario } from '../../types';
 
 const categoryGradients: Record<string, string> = {
-  natural: 'from-emerald-50 to-green-50',
-  sexual: 'from-purple-50 to-fuchsia-50',
-  artificial: 'from-orange-50 to-amber-50',
-  speciation: 'from-blue-50 to-sky-50',
+  natural: 'from-emerald-50 to-green-50 dark:from-emerald-950/40 dark:to-green-950/40',
+  sexual: 'from-purple-50 to-fuchsia-50 dark:from-purple-950/40 dark:to-fuchsia-950/40',
+  artificial: 'from-orange-50 to-amber-50 dark:from-orange-950/40 dark:to-amber-950/40',
+  speciation: 'from-blue-50 to-sky-50 dark:from-blue-950/40 dark:to-sky-950/40',
 };
 
 const categoryAccents: Record<string, string> = {
@@ -45,7 +45,7 @@ export default function ScenarioCard({ scenario }: { scenario: Scenario }) {
 
       {/* Icon */}
       <div className="mb-4 flex items-start justify-between">
-        <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-white/80 text-2xl shadow-sm transition-transform duration-300 group-hover:scale-110 group-hover:rotate-3">
+        <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-white/80 dark:bg-white/10 text-2xl shadow-sm transition-transform duration-300 group-hover:scale-110 group-hover:rotate-3">
           {scenario.icon}
         </span>
         <div className="flex gap-1.5">
@@ -59,16 +59,16 @@ export default function ScenarioCard({ scenario }: { scenario: Scenario }) {
       </div>
 
       {/* Text */}
-      <h3 className="mb-1.5 text-lg font-bold text-gray-900 transition-colors group-hover:text-emerald-700">
+      <h3 className="mb-1.5 text-lg font-bold text-gray-900 dark:text-gray-100 transition-colors group-hover:text-emerald-700 dark:group-hover:text-emerald-400">
         {scenario.name}
       </h3>
-      <p className="mb-4 text-[13px] leading-relaxed text-gray-500">
+      <p className="mb-4 text-[13px] leading-relaxed text-gray-500 dark:text-gray-400">
         {scenario.description}
       </p>
 
       {/* Footer */}
       <div className="flex items-center justify-between">
-        <div className="flex items-center gap-3 text-[11px] text-gray-400">
+        <div className="flex items-center gap-3 text-[11px] text-gray-400 dark:text-gray-500">
           <span>{scenario.parameters.maxGenerations} generations</span>
           <span>&middot;</span>
           <span>{scenario.traits.length} trait{scenario.traits.length > 1 ? 's' : ''}</span>

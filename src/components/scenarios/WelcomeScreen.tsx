@@ -107,10 +107,10 @@ export default function WelcomeScreen() {
           transition={{ delay: 0.2 }}
           className="mb-10"
         >
-          <h2 className="text-xl font-bold text-gray-900">
+          <h2 className="text-xl font-bold text-gray-900 dark:text-gray-100">
             Learn the Science
           </h2>
-          <p className="mt-1 text-sm text-gray-400">
+          <p className="mt-1 text-sm text-gray-400 dark:text-gray-500">
             Read through bite-sized lessons on each topic before exploring the simulations.
           </p>
 
@@ -138,10 +138,10 @@ export default function WelcomeScreen() {
           transition={{ delay: 0.25 }}
           className="mb-10"
         >
-          <h2 className="text-xl font-bold text-gray-900">
+          <h2 className="text-xl font-bold text-gray-900 dark:text-gray-100">
             Guided Stories
           </h2>
-          <p className="mt-1 text-sm text-gray-400">
+          <p className="mt-1 text-sm text-gray-400 dark:text-gray-500">
             Step-by-step visual walkthroughs — watch evolution unfold one generation at a time.
           </p>
 
@@ -151,24 +151,24 @@ export default function WelcomeScreen() {
               onClick={() => navigate('/demo')}
               whileHover={{ y: -3, scale: 1.01 }}
               whileTap={{ scale: 0.98 }}
-              className="card-elevated group relative w-full overflow-hidden bg-gradient-to-br from-amber-50 to-orange-50 p-6 text-left"
+              className="card-elevated group relative w-full overflow-hidden bg-gradient-to-br from-amber-50 to-orange-50 dark:from-amber-950/40 dark:to-orange-950/40 p-6 text-left"
             >
               {completedStories.includes('demo') && (
                 <span className="absolute right-2 top-2 z-10 rounded-full bg-emerald-500 px-2 py-0.5 text-[10px] font-bold text-white">&#x2713; Done</span>
               )}
               <div className="absolute left-0 top-0 h-full w-1 bg-amber-500" />
               <div className="mb-4 flex items-start justify-between">
-                <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-white/80 text-2xl shadow-sm transition-transform duration-300 group-hover:scale-110">
+                <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-white/80 dark:bg-white/10 text-2xl shadow-sm transition-transform duration-300 group-hover:scale-110">
                   🌳
                 </span>
-                <span className="rounded-full bg-amber-100 px-2.5 py-0.5 text-[10px] font-bold text-amber-700">
+                <span className="rounded-full bg-amber-100 dark:bg-amber-900/50 px-2.5 py-0.5 text-[10px] font-bold text-amber-700 dark:text-amber-300">
                   60 seconds
                 </span>
               </div>
-              <h3 className="mb-1.5 text-lg font-bold text-gray-900 transition-colors group-hover:text-amber-700">
+              <h3 className="mb-1.5 text-lg font-bold text-gray-900 dark:text-gray-100 transition-colors group-hover:text-amber-700">
                 Quick Demo
               </h3>
-              <p className="mb-4 text-[13px] leading-relaxed text-gray-500">
+              <p className="mb-4 text-[13px] leading-relaxed text-gray-500 dark:text-gray-400">
                 See natural selection happen in 6 simple steps. No biology background needed.
               </p>
               <span className="flex items-center gap-1 text-xs font-semibold text-amber-600 opacity-0 transition-opacity duration-200 group-hover:opacity-100">
@@ -181,24 +181,24 @@ export default function WelcomeScreen() {
               onClick={() => navigate('/story/bacteria')}
               whileHover={{ y: -3, scale: 1.01 }}
               whileTap={{ scale: 0.98 }}
-              className="card-elevated group relative w-full overflow-hidden bg-gradient-to-br from-emerald-50 to-teal-50 p-6 text-left"
+              className="card-elevated group relative w-full overflow-hidden bg-gradient-to-br from-emerald-50 to-teal-50 dark:from-emerald-950/40 dark:to-teal-950/40 p-6 text-left"
             >
               {completedStories.includes('bacteria') && (
                 <span className="absolute right-2 top-2 z-10 rounded-full bg-emerald-500 px-2 py-0.5 text-[10px] font-bold text-white">&#x2713; Done</span>
               )}
               <div className="absolute left-0 top-0 h-full w-1 bg-emerald-500" />
               <div className="mb-4 flex items-start justify-between">
-                <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-white/80 text-2xl shadow-sm transition-transform duration-300 group-hover:scale-110">
+                <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-white/80 dark:bg-white/10 text-2xl shadow-sm transition-transform duration-300 group-hover:scale-110">
                   🧫
                 </span>
-                <span className="rounded-full bg-emerald-100 px-2.5 py-0.5 text-[10px] font-bold text-emerald-700">
+                <span className="rounded-full bg-emerald-100 dark:bg-emerald-900/50 px-2.5 py-0.5 text-[10px] font-bold text-emerald-700 dark:text-emerald-300">
                   17 steps
                 </span>
               </div>
-              <h3 className="mb-1.5 text-lg font-bold text-gray-900 transition-colors group-hover:text-emerald-700">
+              <h3 className="mb-1.5 text-lg font-bold text-gray-900 dark:text-gray-100 transition-colors group-hover:text-emerald-700">
                 Antibiotic Resistance
               </h3>
-              <p className="mb-4 text-[13px] leading-relaxed text-gray-500">
+              <p className="mb-4 text-[13px] leading-relaxed text-gray-500 dark:text-gray-400">
                 Follow one bacterium from origin to superbug. See how resistance emerges.
               </p>
               <span className="flex items-center gap-1 text-xs font-semibold text-emerald-600 opacity-0 transition-opacity duration-200 group-hover:opacity-100">
@@ -211,24 +211,24 @@ export default function WelcomeScreen() {
               onClick={() => navigate('/story/moths')}
               whileHover={{ y: -3, scale: 1.01 }}
               whileTap={{ scale: 0.98 }}
-              className="card-elevated group relative w-full overflow-hidden bg-gradient-to-br from-stone-50 to-amber-50 p-6 text-left"
+              className="card-elevated group relative w-full overflow-hidden bg-gradient-to-br from-stone-50 to-amber-50 dark:from-stone-950/40 dark:to-amber-950/40 p-6 text-left"
             >
               {completedStories.includes('moths') && (
                 <span className="absolute right-2 top-2 z-10 rounded-full bg-emerald-500 px-2 py-0.5 text-[10px] font-bold text-white">&#x2713; Done</span>
               )}
               <div className="absolute left-0 top-0 h-full w-1 bg-stone-500" />
               <div className="mb-4 flex items-start justify-between">
-                <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-white/80 text-2xl shadow-sm transition-transform duration-300 group-hover:scale-110">
+                <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-white/80 dark:bg-white/10 text-2xl shadow-sm transition-transform duration-300 group-hover:scale-110">
                   🦋
                 </span>
-                <span className="rounded-full bg-stone-100 px-2.5 py-0.5 text-[10px] font-bold text-stone-700">
+                <span className="rounded-full bg-stone-100 dark:bg-stone-900/50 px-2.5 py-0.5 text-[10px] font-bold text-stone-700 dark:text-stone-300">
                   17 steps
                 </span>
               </div>
-              <h3 className="mb-1.5 text-lg font-bold text-gray-900 transition-colors group-hover:text-stone-700">
+              <h3 className="mb-1.5 text-lg font-bold text-gray-900 dark:text-gray-100 transition-colors group-hover:text-stone-700">
                 Peppered Moths
               </h3>
-              <p className="mb-4 text-[13px] leading-relaxed text-gray-500">
+              <p className="mb-4 text-[13px] leading-relaxed text-gray-500 dark:text-gray-400">
                 Watch moths change color as pollution darkens the trees.
               </p>
               <span className="flex items-center gap-1 text-xs font-semibold text-stone-600 opacity-0 transition-opacity duration-200 group-hover:opacity-100">
@@ -241,24 +241,24 @@ export default function WelcomeScreen() {
               onClick={() => navigate('/story/peacock')}
               whileHover={{ y: -3, scale: 1.01 }}
               whileTap={{ scale: 0.98 }}
-              className="card-elevated group relative w-full overflow-hidden bg-gradient-to-br from-violet-50 to-purple-50 p-6 text-left"
+              className="card-elevated group relative w-full overflow-hidden bg-gradient-to-br from-violet-50 to-purple-50 dark:from-violet-950/40 dark:to-purple-950/40 p-6 text-left"
             >
               {completedStories.includes('peacock') && (
                 <span className="absolute right-2 top-2 z-10 rounded-full bg-emerald-500 px-2 py-0.5 text-[10px] font-bold text-white">&#x2713; Done</span>
               )}
               <div className="absolute left-0 top-0 h-full w-1 bg-violet-500" />
               <div className="mb-4 flex items-start justify-between">
-                <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-white/80 text-2xl shadow-sm transition-transform duration-300 group-hover:scale-110">
+                <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-white/80 dark:bg-white/10 text-2xl shadow-sm transition-transform duration-300 group-hover:scale-110">
                   🦚
                 </span>
-                <span className="rounded-full bg-violet-100 px-2.5 py-0.5 text-[10px] font-bold text-violet-700">
+                <span className="rounded-full bg-violet-100 dark:bg-violet-900/50 px-2.5 py-0.5 text-[10px] font-bold text-violet-700 dark:text-violet-300">
                   17 steps
                 </span>
               </div>
-              <h3 className="mb-1.5 text-lg font-bold text-gray-900 transition-colors group-hover:text-violet-700">
+              <h3 className="mb-1.5 text-lg font-bold text-gray-900 dark:text-gray-100 transition-colors group-hover:text-violet-700">
                 Peacock Tails
               </h3>
-              <p className="mb-4 text-[13px] leading-relaxed text-gray-500">
+              <p className="mb-4 text-[13px] leading-relaxed text-gray-500 dark:text-gray-400">
                 See how female mate choice drives elaborate tails — and the survival trade-off.
               </p>
               <span className="flex items-center gap-1 text-xs font-semibold text-violet-600 opacity-0 transition-opacity duration-200 group-hover:opacity-100">
@@ -271,24 +271,24 @@ export default function WelcomeScreen() {
               onClick={() => navigate('/story/dogs')}
               whileHover={{ y: -3, scale: 1.01 }}
               whileTap={{ scale: 0.98 }}
-              className="card-elevated group relative w-full overflow-hidden bg-gradient-to-br from-orange-50 to-yellow-50 p-6 text-left"
+              className="card-elevated group relative w-full overflow-hidden bg-gradient-to-br from-orange-50 to-yellow-50 dark:from-orange-950/40 dark:to-yellow-950/40 p-6 text-left"
             >
               {completedStories.includes('dogs') && (
                 <span className="absolute right-2 top-2 z-10 rounded-full bg-emerald-500 px-2 py-0.5 text-[10px] font-bold text-white">&#x2713; Done</span>
               )}
               <div className="absolute left-0 top-0 h-full w-1 bg-orange-500" />
               <div className="mb-4 flex items-start justify-between">
-                <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-white/80 text-2xl shadow-sm transition-transform duration-300 group-hover:scale-110">
+                <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-white/80 dark:bg-white/10 text-2xl shadow-sm transition-transform duration-300 group-hover:scale-110">
                   🐕
                 </span>
-                <span className="rounded-full bg-orange-100 px-2.5 py-0.5 text-[10px] font-bold text-orange-700">
+                <span className="rounded-full bg-orange-100 dark:bg-orange-900/50 px-2.5 py-0.5 text-[10px] font-bold text-orange-700 dark:text-orange-300">
                   17 steps
                 </span>
               </div>
-              <h3 className="mb-1.5 text-lg font-bold text-gray-900 transition-colors group-hover:text-orange-700">
+              <h3 className="mb-1.5 text-lg font-bold text-gray-900 dark:text-gray-100 transition-colors group-hover:text-orange-700">
                 Dog Domestication
               </h3>
-              <p className="mb-4 text-[13px] leading-relaxed text-gray-500">
+              <p className="mb-4 text-[13px] leading-relaxed text-gray-500 dark:text-gray-400">
                 Watch wolves become dogs as humans select the tamest for breeding.
               </p>
               <span className="flex items-center gap-1 text-xs font-semibold text-orange-600 opacity-0 transition-opacity duration-200 group-hover:opacity-100">
@@ -301,24 +301,24 @@ export default function WelcomeScreen() {
               onClick={() => navigate('/story/finches')}
               whileHover={{ y: -3, scale: 1.01 }}
               whileTap={{ scale: 0.98 }}
-              className="card-elevated group relative w-full overflow-hidden bg-gradient-to-br from-sky-50 to-cyan-50 p-6 text-left"
+              className="card-elevated group relative w-full overflow-hidden bg-gradient-to-br from-sky-50 to-cyan-50 dark:from-sky-950/40 dark:to-cyan-950/40 p-6 text-left"
             >
               {completedStories.includes('finches') && (
                 <span className="absolute right-2 top-2 z-10 rounded-full bg-emerald-500 px-2 py-0.5 text-[10px] font-bold text-white">&#x2713; Done</span>
               )}
               <div className="absolute left-0 top-0 h-full w-1 bg-sky-500" />
               <div className="mb-4 flex items-start justify-between">
-                <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-white/80 text-2xl shadow-sm transition-transform duration-300 group-hover:scale-110">
+                <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-white/80 dark:bg-white/10 text-2xl shadow-sm transition-transform duration-300 group-hover:scale-110">
                   🐦
                 </span>
-                <span className="rounded-full bg-sky-100 px-2.5 py-0.5 text-[10px] font-bold text-sky-700">
+                <span className="rounded-full bg-sky-100 dark:bg-sky-900/50 px-2.5 py-0.5 text-[10px] font-bold text-sky-700 dark:text-sky-300">
                   17 steps
                 </span>
               </div>
-              <h3 className="mb-1.5 text-lg font-bold text-gray-900 transition-colors group-hover:text-sky-700">
+              <h3 className="mb-1.5 text-lg font-bold text-gray-900 dark:text-gray-100 transition-colors group-hover:text-sky-700">
                 Darwin's Finches
               </h3>
-              <p className="mb-4 text-[13px] leading-relaxed text-gray-500">
+              <p className="mb-4 text-[13px] leading-relaxed text-gray-500 dark:text-gray-400">
                 Watch one finch species split into specialists with different beaks.
               </p>
               <span className="flex items-center gap-1 text-xs font-semibold text-sky-600 opacity-0 transition-opacity duration-200 group-hover:opacity-100">
@@ -335,10 +335,10 @@ export default function WelcomeScreen() {
           transition={{ delay: 0.3 }}
           className="mb-8"
         >
-          <h2 className="text-xl font-bold text-gray-900">
+          <h2 className="text-xl font-bold text-gray-900 dark:text-gray-100">
             Choose a Simulation
           </h2>
-          <p className="mt-1 text-sm text-gray-400">
+          <p className="mt-1 text-sm text-gray-400 dark:text-gray-500">
             Select a scenario to explore evolutionary principles
           </p>
         </motion.div>
