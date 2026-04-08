@@ -7,8 +7,13 @@ import { pepperedMothsChapter } from '../../data/chapters/pepperedMoths';
 import { peacockTailsChapter } from '../../data/chapters/peacockTails';
 import { dogDomesticationChapter } from '../../data/chapters/dogDomestication';
 import { darwinsFinchesChapter } from '../../data/chapters/darwinsFinches';
+import { predatorPreyChapter } from '../../data/chapters/predatorPrey';
+import { mimicryChapter } from '../../data/chapters/mimicry';
+import { antibioticCyclingChapter } from '../../data/chapters/antibioticCycling';
 import ScenarioCard from './ScenarioCard';
 import ChapterCard from '../tutorial/ChapterCard';
+import ProgressBadge from './ProgressBadge';
+import { useProgressStore } from '../../store/progressStore';
 import type { Chapter } from '../../types/tutorial';
 
 const allChapters: Chapter[] = [
@@ -18,6 +23,9 @@ const allChapters: Chapter[] = [
   peacockTailsChapter,
   dogDomesticationChapter,
   darwinsFinchesChapter,
+  predatorPreyChapter,
+  mimicryChapter,
+  antibioticCyclingChapter,
 ];
 
 const container = {
@@ -35,6 +43,7 @@ const item = {
 
 export default function WelcomeScreen() {
   const navigate = useNavigate();
+  const completedStories = useProgressStore((s) => s.completedStories);
   return (
     <div className="min-h-full">
       {/* Hero section */}
@@ -107,11 +116,17 @@ export default function WelcomeScreen() {
 
           <div className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {allChapters.map((ch) => (
-              <ChapterCard
-                key={ch.id}
-                chapter={ch}
-                onOpen={() => navigate(`/tutorial/${ch.id}`)}
-              />
+              <div key={ch.id} className="relative">
+                <ProgressBadge
+                  type="tutorial"
+                  chapterId={ch.id}
+                  totalLessons={ch.lessons.length}
+                />
+                <ChapterCard
+                  chapter={ch}
+                  onOpen={() => navigate(`/tutorial/${ch.id}`)}
+                />
+              </div>
             ))}
           </div>
         </motion.div>
@@ -138,6 +153,9 @@ export default function WelcomeScreen() {
               whileTap={{ scale: 0.98 }}
               className="card-elevated group relative w-full overflow-hidden bg-gradient-to-br from-amber-50 to-orange-50 p-6 text-left"
             >
+              {completedStories.includes('demo') && (
+                <span className="absolute right-2 top-2 z-10 rounded-full bg-emerald-500 px-2 py-0.5 text-[10px] font-bold text-white">&#x2713; Done</span>
+              )}
               <div className="absolute left-0 top-0 h-full w-1 bg-amber-500" />
               <div className="mb-4 flex items-start justify-between">
                 <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-white/80 text-2xl shadow-sm transition-transform duration-300 group-hover:scale-110">
@@ -165,6 +183,9 @@ export default function WelcomeScreen() {
               whileTap={{ scale: 0.98 }}
               className="card-elevated group relative w-full overflow-hidden bg-gradient-to-br from-emerald-50 to-teal-50 p-6 text-left"
             >
+              {completedStories.includes('bacteria') && (
+                <span className="absolute right-2 top-2 z-10 rounded-full bg-emerald-500 px-2 py-0.5 text-[10px] font-bold text-white">&#x2713; Done</span>
+              )}
               <div className="absolute left-0 top-0 h-full w-1 bg-emerald-500" />
               <div className="mb-4 flex items-start justify-between">
                 <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-white/80 text-2xl shadow-sm transition-transform duration-300 group-hover:scale-110">
@@ -192,6 +213,9 @@ export default function WelcomeScreen() {
               whileTap={{ scale: 0.98 }}
               className="card-elevated group relative w-full overflow-hidden bg-gradient-to-br from-stone-50 to-amber-50 p-6 text-left"
             >
+              {completedStories.includes('moths') && (
+                <span className="absolute right-2 top-2 z-10 rounded-full bg-emerald-500 px-2 py-0.5 text-[10px] font-bold text-white">&#x2713; Done</span>
+              )}
               <div className="absolute left-0 top-0 h-full w-1 bg-stone-500" />
               <div className="mb-4 flex items-start justify-between">
                 <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-white/80 text-2xl shadow-sm transition-transform duration-300 group-hover:scale-110">
@@ -219,6 +243,9 @@ export default function WelcomeScreen() {
               whileTap={{ scale: 0.98 }}
               className="card-elevated group relative w-full overflow-hidden bg-gradient-to-br from-violet-50 to-purple-50 p-6 text-left"
             >
+              {completedStories.includes('peacock') && (
+                <span className="absolute right-2 top-2 z-10 rounded-full bg-emerald-500 px-2 py-0.5 text-[10px] font-bold text-white">&#x2713; Done</span>
+              )}
               <div className="absolute left-0 top-0 h-full w-1 bg-violet-500" />
               <div className="mb-4 flex items-start justify-between">
                 <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-white/80 text-2xl shadow-sm transition-transform duration-300 group-hover:scale-110">
@@ -246,6 +273,9 @@ export default function WelcomeScreen() {
               whileTap={{ scale: 0.98 }}
               className="card-elevated group relative w-full overflow-hidden bg-gradient-to-br from-orange-50 to-yellow-50 p-6 text-left"
             >
+              {completedStories.includes('dogs') && (
+                <span className="absolute right-2 top-2 z-10 rounded-full bg-emerald-500 px-2 py-0.5 text-[10px] font-bold text-white">&#x2713; Done</span>
+              )}
               <div className="absolute left-0 top-0 h-full w-1 bg-orange-500" />
               <div className="mb-4 flex items-start justify-between">
                 <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-white/80 text-2xl shadow-sm transition-transform duration-300 group-hover:scale-110">
@@ -273,6 +303,9 @@ export default function WelcomeScreen() {
               whileTap={{ scale: 0.98 }}
               className="card-elevated group relative w-full overflow-hidden bg-gradient-to-br from-sky-50 to-cyan-50 p-6 text-left"
             >
+              {completedStories.includes('finches') && (
+                <span className="absolute right-2 top-2 z-10 rounded-full bg-emerald-500 px-2 py-0.5 text-[10px] font-bold text-white">&#x2713; Done</span>
+              )}
               <div className="absolute left-0 top-0 h-full w-1 bg-sky-500" />
               <div className="mb-4 flex items-start justify-between">
                 <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-white/80 text-2xl shadow-sm transition-transform duration-300 group-hover:scale-110">

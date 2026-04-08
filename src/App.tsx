@@ -10,6 +10,9 @@ import { pepperedMothsChapter } from './data/chapters/pepperedMoths';
 import { peacockTailsChapter } from './data/chapters/peacockTails';
 import { dogDomesticationChapter } from './data/chapters/dogDomestication';
 import { darwinsFinchesChapter } from './data/chapters/darwinsFinches';
+import { predatorPreyChapter } from './data/chapters/predatorPrey';
+import { mimicryChapter } from './data/chapters/mimicry';
+import { antibioticCyclingChapter } from './data/chapters/antibioticCycling';
 import Header from './components/layout/Header';
 import Sidebar from './components/layout/Sidebar';
 import SimulationCanvas from './components/simulation/SimulationCanvas';
@@ -17,6 +20,7 @@ import ControlPanel from './components/simulation/ControlPanel';
 import PopulationChart from './components/simulation/PopulationChart';
 import SimulationSummary from './components/simulation/SimulationSummary';
 import ExplanationPanel from './components/education/ExplanationPanel';
+import WhatIfPanel from './components/simulation/WhatIfPanel';
 import WelcomeScreen from './components/scenarios/WelcomeScreen';
 import TutorialViewer from './components/tutorial/TutorialViewer';
 import { useKeyboardShortcuts } from './hooks/useKeyboardShortcuts';
@@ -54,6 +58,9 @@ const chapters: Record<string, Chapter> = {
   'peacock-tails': peacockTailsChapter,
   'dog-domestication': dogDomesticationChapter,
   'darwins-finches': darwinsFinchesChapter,
+  'predator-prey': predatorPreyChapter,
+  'mimicry': mimicryChapter,
+  'antibiotic-cycling': antibioticCyclingChapter,
 };
 
 // ─── Narrative story page wrapper ───
@@ -77,19 +84,19 @@ function StoryPage({
       className="h-full"
     >
       <div className="grid h-full grid-rows-[auto_1fr] overflow-hidden">
-        <div className="border-b border-gray-100 bg-white px-6 py-3">
+        <div className="border-b border-gray-100 bg-white px-6 py-3 dark:border-[var(--color-border)] dark:bg-[var(--color-surface)]">
           <div className="mx-auto flex max-w-4xl items-center gap-3">
             <button
               onClick={() => navigate('/')}
-              className="flex h-8 w-8 items-center justify-center rounded-lg text-gray-400 transition-colors hover:bg-gray-100 hover:text-gray-600"
+              className="flex h-8 w-8 items-center justify-center rounded-lg text-gray-400 transition-colors hover:bg-gray-100 hover:text-gray-600 dark:hover:bg-white/10 dark:hover:text-gray-200"
             >
               <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
               </svg>
             </button>
             <div>
-              <h2 className="text-sm font-bold text-gray-900">{title}</h2>
-              <p className="text-[11px] text-gray-400">{subtitle}</p>
+              <h2 className="text-sm font-bold text-gray-900 dark:text-gray-100">{title}</h2>
+              <p className="text-[11px] text-gray-400 dark:text-gray-500">{subtitle}</p>
             </div>
           </div>
         </div>
@@ -184,14 +191,14 @@ function SimulationPage() {
                 animate={{ opacity: 1 }}
                 className="card flex items-center gap-4 p-5"
               >
-                <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-xl bg-emerald-50">
+                <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-xl bg-emerald-50 dark:bg-emerald-900/30">
                   <svg className="h-6 w-6 text-emerald-400" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M5.25 5.653c0-.856.917-1.398 1.667-.986l11.54 6.347a1.125 1.125 0 010 1.972l-11.54 6.347a1.125 1.125 0 01-1.667-.986V5.653z" />
                   </svg>
                 </div>
                 <div>
-                  <p className="text-sm font-semibold text-gray-700">{t('common.readyToSimulate')}</p>
-                  <p className="text-[12px] text-gray-400">
+                  <p className="text-sm font-semibold text-gray-700 dark:text-gray-200">{t('common.readyToSimulate')}</p>
+                  <p className="text-[12px] text-gray-400 dark:text-gray-500">
                     {t('common.readyToSimulateHint')}
                   </p>
                 </div>
@@ -200,6 +207,7 @@ function SimulationPage() {
           </div>
           <div className="space-y-3">
             <ExplanationPanel />
+            {generation > 0 && <WhatIfPanel />}
           </div>
         </div>
       </div>
@@ -215,10 +223,10 @@ function NotFoundPage() {
   usePageTitle('Page Not Found');
   return (
     <div className="flex h-full flex-col items-center justify-center gap-4 p-8">
-      <div className="flex h-20 w-20 items-center justify-center rounded-2xl bg-gray-50">
+      <div className="flex h-20 w-20 items-center justify-center rounded-2xl bg-gray-50 dark:bg-white/5">
         <span className="text-4xl">🧬</span>
       </div>
-      <h2 className="text-xl font-bold text-gray-800">{t('notFound.title')}</h2>
+      <h2 className="text-xl font-bold text-gray-800 dark:text-gray-100">{t('notFound.title')}</h2>
       <p className="max-w-sm text-center text-sm text-gray-400">
         {t('notFound.description')}
       </p>

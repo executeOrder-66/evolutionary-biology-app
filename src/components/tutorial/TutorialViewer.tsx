@@ -1,7 +1,8 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import type { Chapter } from '../../types/tutorial';
 import TutorialDiagram from './TutorialDiagrams';
+import { useProgressStore } from '../../store/progressStore';
 
 interface TutorialViewerProps {
   chapter: Chapter;
@@ -12,6 +13,12 @@ export default function TutorialViewer({ chapter, onClose }: TutorialViewerProps
   const [lessonIdx, setLessonIdx] = useState(0);
   const [pageIdx, setPageIdx] = useState(0);
   const [direction, setDirection] = useState(1);
+  const markLessonComplete = useProgressStore((s) => s.markLessonComplete);
+
+  // Mark lesson complete when user views it
+  useEffect(() => {
+    markLessonComplete(chapter.id, lessonIdx);
+  }, [chapter.id, lessonIdx, markLessonComplete]);
 
   const lesson = chapter.lessons[lessonIdx];
   const page = lesson.pages[pageIdx];

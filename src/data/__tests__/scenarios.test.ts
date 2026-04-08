@@ -2,8 +2,8 @@ import { describe, it, expect } from 'vitest';
 import { scenarios } from '../scenarios';
 
 describe('scenarios data integrity', () => {
-  it('has 5 scenarios', () => {
-    expect(scenarios).toHaveLength(5);
+  it('has 8 scenarios', () => {
+    expect(scenarios).toHaveLength(8);
   });
 
   it('all scenarios have required fields', () => {

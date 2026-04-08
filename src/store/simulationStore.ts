@@ -7,6 +7,7 @@ import type {
   EnvironmentState,
   ContentStep,
   LineageData,
+  BranchPoint,
 } from '../types';
 import { BaseSimulation } from '../engine/BaseSimulation';
 import { AntibioticResistanceSimulation } from '../engine/AntibioticResistance';
@@ -14,7 +15,11 @@ import { PepperedMothSimulation } from '../engine/PepperedMoth';
 import { PeacockTailSimulation } from '../engine/PeacockTail';
 import { DogDomesticationSimulation } from '../engine/DogDomestication';
 import { DarwinsFinchesSimulation } from '../engine/DarwinsFinches';
+import { PredatorPreySimulation } from '../engine/PredatorPrey';
+import { MimicrySimulation } from '../engine/Mimicry';
+import { AntibioticCyclingSimulation } from '../engine/AntibioticCycling';
 import { LineageTracker } from '../engine/LineageTracker';
+import { useProgressStore } from './progressStore';
 
 interface SimulationStore {
   // State
@@ -33,6 +38,9 @@ interface SimulationStore {
   lineageTracker: LineageTracker | null;
   lineageData: LineageData | null;
 
+  // What-If branching
+  branches: BranchPoint[];
+
   // Actions
   loadScenario: (scenario: Scenario) => void;
   play: () => void;
@@ -40,6 +48,9 @@ interface SimulationStore {
   reset: () => void;
   stepForward: () => void;
   setSpeed: (speed: number) => void;
+  saveBranch: (label: string, factorKey: string, oldValue: number, newValue: number) => void;
+  revertToBranch: () => void;
+  setEnvironmentFactor: (key: string, value: number) => void;
 }
 
 function createSimulation(scenario: Scenario): BaseSimulation {
@@ -70,6 +81,24 @@ function createSimulation(scenario: Scenario): BaseSimulation {
       );
     case 'darwins-finches':
       return new DarwinsFinchesSimulation(
+        scenario.traits,
+        scenario.genetics,
+        scenario.parameters
+      );
+    case 'predator-prey':
+      return new PredatorPreySimulation(
+        scenario.traits,
+        scenario.genetics,
+        scenario.parameters
+      );
+    case 'mimicry':
+      return new MimicrySimulation(
+        scenario.traits,
+        scenario.genetics,
+        scenario.parameters
+      );
+    case 'antibiotic-cycling':
+      return new AntibioticCyclingSimulation(
         scenario.traits,
         scenario.genetics,
         scenario.parameters
@@ -120,6 +149,7 @@ export const useSimulationStore = create<SimulationStore>((set, get) => ({
   activeContentStep: null,
   lineageTracker: null,
   lineageData: null,
+  branches: [],
 
   loadScenario: (scenario) => {
     const { intervalId } = get();
@@ -140,6 +170,7 @@ export const useSimulationStore = create<SimulationStore>((set, get) => ({
       activeContentStep: findActiveContentStep(scenario, 0),
       lineageTracker: tracker,
       lineageData: tracker.getLineageData(),
+      branches: [],
     });
   },
 
@@ -161,6 +192,9 @@ export const useSimulationStore = create<SimulationStore>((set, get) => ({
     }
 
     const gen = simulation.getGeneration();
+
+    // Persist highest generation reached
+    useProgressStore.getState().updateSimulationProgress(scenario.id, gen);
 
     set({
       population: simulation.getPopulation(),
@@ -228,5 +262,31 @@ export const useSimulationStore = create<SimulationStore>((set, get) => ({
       get().pause();
       get().play();
     }
+  },
+
+  saveBranch: (label, factorKey, oldValue, newValue) => {
+    const { generation, branches } = get();
+    const branch: BranchPoint = {
+      id: `branch-${Date.now()}`,
+      generation,
+      label,
+      oldValue,
+      newValue,
+      factorKey,
+    };
+    set({ branches: [...branches, branch] });
+  },
+
+  revertToBranch: () => {
+    get().reset();
+    set({ branches: [] });
+  },
+
+  setEnvironmentFactor: (key, value) => {
+    const { simulation, environment } = get();
+    if (!simulation || !environment) return;
+    const env = simulation.getEnvironment();
+    env.factors[key] = value;
+    set({ environment: { ...env } });
   },
 }));

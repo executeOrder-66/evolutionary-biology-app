@@ -1,5 +1,7 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 /* ─── Custom Properties (Design Tokens) ─── */
 :root {
   --color-brand: #10b981;
@@ -26,6 +28,28 @@
   --radius-lg: 16px;
   --radius-xl: 24px;
   --radius-full: 9999px;
+}
+
+.dark {
+  --color-brand: #34d399;
+  --color-brand-dark: #10b981;
+  --color-brand-light: #064e3b;
+  --color-surface: #1e1e1e;
+  --color-surface-raised: #252525;
+  --color-surface-overlay: rgba(30, 30, 30, 0.85);
+  --color-bg: #121212;
+  --color-text: #e0e0e0;
+  --color-text-secondary: #a0a0a0;
+  --color-text-muted: #666666;
+  --color-border: #333333;
+  --color-border-subtle: #2a2a2a;
+  --gradient-brand: linear-gradient(135deg, #10b981 0%, #34d399 50%, #6ee7b7 100%);
+  --gradient-hero: linear-gradient(160deg, #032218 0%, #042f2e 30%, #064e3b 70%, #065f46 100%);
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.3);
+  --shadow-md: 0 4px 12px rgba(0,0,0,0.4);
+  --shadow-lg: 0 12px 40px rgba(0,0,0,0.5);
+  --shadow-xl: 0 24px 60px rgba(0,0,0,0.6);
+  --shadow-glow: 0 0 30px rgba(52, 211, 153, 0.25);
 }
 
 /* ─── Base ─── */
@@ -60,6 +84,14 @@ body {
   background: rgba(255, 255, 255, 0.88);
   backdrop-filter: blur(30px) saturate(200%);
   -webkit-backdrop-filter: blur(30px) saturate(200%);
+}
+
+.dark .glass {
+  background: rgba(30, 30, 30, 0.8);
+}
+
+.dark .glass-heavy {
+  background: rgba(30, 30, 30, 0.92);
 }
 
 /* ─── Animations ─── */
@@ -179,6 +211,14 @@ body {
 .badge-intermediate { background: #fffbeb; color: #b45309; }
 .badge-advanced { background: #fef2f2; color: #b91c1c; }
 
+.dark .badge-natural { background: #052e16; color: #86efac; }
+.dark .badge-sexual { background: #3b0764; color: #d8b4fe; }
+.dark .badge-artificial { background: #431407; color: #fdba74; }
+.dark .badge-speciation { background: #172554; color: #93c5fd; }
+.dark .badge-beginner { background: #022c22; color: #6ee7b7; }
+.dark .badge-intermediate { background: #451a03; color: #fbbf24; }
+.dark .badge-advanced { background: #450a0a; color: #fca5a5; }
+
 /* ─── Range Input ─── */
 input[type="range"] {
   -webkit-appearance: none;
@@ -216,4 +256,13 @@ input[type="range"]::-webkit-slider-thumb:active { transform: scale(1.1); }
   pointer-events: none;
   white-space: nowrap;
   box-shadow: var(--shadow-md);
+}
+
+.dark .chart-tooltip {
+  background: rgba(0, 0, 0, 0.85);
+}
+
+.dark .animate-shimmer {
+  background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.08) 50%, transparent 100%);
+  background-size: 200% 100%;
 }

@@ -137,3 +137,14 @@ export interface LineageData {
   trackedAncestorIds: string[];
   maxGeneration: number;
 }
+
+// ─── What-If Branching ───
+
+export interface BranchPoint {
+  id: string;
+  generation: number;
+  label: string;
+  oldValue: number;
+  newValue: number;
+  factorKey: string;
+}
